@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+Pillow
+python-multipart
+python-dotenv
+requests
+httpx
+groq
+huggingface_hub

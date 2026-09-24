@@ -1,0 +1,1135 @@
+{
+    "LF": {
+        "IA": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\IA_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\IA_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\IA_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Data": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Data_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Data_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Data_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Développement application": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Développement application_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Développement application_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Développement application_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Système et Sécurité": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Système et Sécurité_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Système et Sécurité_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Système et Sécurité_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "E-learning": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\E-learning_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\E-learning_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\E-learning_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Community manager": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Community manager_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Community manager_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\LF\\Community manager_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 93,
+                    "largeur": 1481,
+                    "hauteur": 133,
+                    "y": 491,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 188,
+                    "largeur": 1342,
+                    "hauteur": 86,
+                    "y": 804,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 273,
+                    "largeur": 1169,
+                    "hauteur": 174,
+                    "y": 909,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 396,
+                    "largeur": 892,
+                    "hauteur": 69,
+                    "y": 1221,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1650,
+                    "hauteur": 1650
+                }
+            },
+            "objectif_publication": "Recrutement"
+        }
+    },
+    "FIAG": {
+        "Recrutement_Bureau": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Bureau_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Bureau_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Bureau_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Recrutement_Technicien": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Technicien_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Technicien_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Recrutement_Technicien_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Nouvel-arrivage": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Nouvel-arrivage_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Nouvel-arrivage_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Nouvel-arrivage_fond.png",
+            "zones_modifiables": {
+                "Image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 524,
+                    "largeur": 3109,
+                    "hauteur": 2585
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2839,
+                    "hauteur": 117,
+                    "y": 2957,
+                    "font": "Inter_Bold.ttf",
+                    "size": 90
+                }
+            },
+            "objectif_publication": "Offres_Nouveautés"
+        },
+        "Spécial_Promo": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Spécial_Promo_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Spécial_Promo_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Spécial_Promo_fond.png",
+            "zones_modifiables": {
+                "Fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 510,
+                    "largeur": 3109,
+                    "hauteur": 2599
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 69,
+                    "largeur": 2604,
+                    "hauteur": 93,
+                    "y": 2932,
+                    "font": "Inter_Bold.ttf",
+                    "size": 90
+                }
+            },
+            "objectif_publication": "Offres_Nouveautés"
+        },
+        "Présentation_produit": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Présentation_produit_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Présentation_produit_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Présentation_produit_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 911,
+                    "largeur": 1323,
+                    "hauteur": 383,
+                    "y": 70,
+                    "font": "Inter_BlackItalic.ttf",
+                    "size": 175
+                },
+                "Image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 526,
+                    "largeur": 3109,
+                    "hauteur": 2583
+                }
+            },
+            "objectif_publication": "Offres_Nouveautés"
+        },
+        "Bannières_Linkedin": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Linkedin_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Linkedin_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Linkedin_fond.png",
+            "zones_modifiables": {
+                "Image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 4096,
+                    "hauteur": 1024
+                }
+            },
+            "objectif_publication": "Bannières"
+        },
+        "Bannières_Facebook": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Facebook_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Facebook_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\FIAG\\Bannières_Facebook_fond.png",
+            "zones_modifiables": {
+                "Image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3417,
+                    "hauteur": 1500
+                }
+            },
+            "objectif_publication": "Bannières"
+        }
+    },
+    "CAMCI": {
+        
+    },
+    "AFRICA TECHNOLOGIE TEST": {
+        "recrutement": {},
+        "nouveau produit": {},
+        "recrutement 2026": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\recrutement 2026_base.png",
+            "zones_modifiables": {
+                "titre": {
+                    "type": "texte",
+                    "x": 194,
+                    "y": 493,
+                    "largeur": 1254,
+                    "hauteur": 111
+                },
+                "poste": {
+                    "type": "texte",
+                    "x": 597,
+                    "y": 788,
+                    "largeur": 474,
+                    "hauteur": 71
+                },
+                "description": {
+                    "type": "texte",
+                    "x": 350,
+                    "y": 900,
+                    "largeur": 952,
+                    "hauteur": 62
+                },
+                "lieu": {
+                    "type": "texte",
+                    "x": 690,
+                    "y": 1223,
+                    "largeur": 269,
+                    "hauteur": 60
+                },
+                "background": {
+                    "type": "image",
+                    "x": 2,
+                    "y": 0,
+                    "largeur": 1501,
+                    "hauteur": 706
+                }
+            }
+        },
+        "test": {},
+        "test2": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test2_base.png",
+            "zones_modifiables": {
+                "titre grand": {
+                    "type": "texte",
+                    "x": 229,
+                    "y": 522,
+                    "largeur": 1214,
+                    "hauteur": 108
+                }
+            }
+        },
+        "test3": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test3_base.png",
+            "zones_modifiables": {
+                "tit": {
+                    "type": "texte",
+                    "y": 524,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                }
+            }
+        },
+        "test4": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test4_base.png",
+            "zones_modifiables": {
+                "Grand titre": {
+                    "type": "texte",
+                    "y": 526,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "y": 761,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "y": 1230,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                }
+            }
+        },
+        "test5": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test5_base.png",
+            "zones_modifiables": {
+                "fond": {
+                    "type": "image",
+                    "x": -1,
+                    "y": -1,
+                    "largeur": 1646,
+                    "hauteur": 1648
+                }
+            }
+        },
+        "test6": {
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test6_base.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "y": 522,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "y": 763,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "y": 1230,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1648,
+                    "hauteur": 1646
+                }
+            }
+        },
+        "test7": {
+            "base_reference": "template\\AFRICA TECHNOLOGIE TEST\\test7_base.png",
+            "calque_fixe": "template\\AFRICA TECHNOLOGIE TEST\\test7_overlay.png",
+            "fond_defaut": "template\\AFRICA TECHNOLOGIE TEST\\test7_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "y": 524,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "y": 760,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "lieu": {
+                    "type": "texte",
+                    "y": 1230,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "fond": {
+                    "type": "image",
+                    "x": 2,
+                    "y": 0,
+                    "largeur": 1644,
+                    "hauteur": 1649
+                }
+            }
+        },
+        "test 8": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 8_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 8_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 8_fond.png",
+            "zones_modifiables": {
+                "titre": {
+                    "type": "texte",
+                    "y": 526,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "poste": {
+                    "type": "texte",
+                    "y": 757,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "lieu": {
+                    "type": "texte",
+                    "y": 1226,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1644,
+                    "hauteur": 1646
+                }
+            },
+            "objectif_publication": "test"
+        },
+        "test 9": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 9_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 9_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 9_fond.png",
+            "zones_modifiables": {
+                "titre": {
+                    "type": "texte",
+                    "x": 108,
+                    "largeur": 1424,
+                    "hauteur": 126,
+                    "y": 488,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "poste": {
+                    "type": "texte",
+                    "x": 90,
+                    "largeur": 1486,
+                    "hauteur": 95,
+                    "y": 807,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "description": {
+                    "type": "texte",
+                    "x": 106,
+                    "largeur": 1463,
+                    "hauteur": 179,
+                    "y": 912,
+                    "font": "Inter_Italic.ttf",
+                    "size": 50
+                },
+                "lieu": {
+                    "type": "texte",
+                    "x": 379,
+                    "largeur": 919,
+                    "hauteur": 65,
+                    "y": 1220,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "font": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 1647,
+                    "hauteur": 1646
+                }
+            },
+            "objectif_publication": "test"
+        },
+        "test00": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test00_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test00_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test00_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 216,
+                    "largeur": 1239,
+                    "hauteur": 131,
+                    "y": 477,
+                    "font": "Inter_Black.ttf",
+                    "size": 130
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 493,
+                    "largeur": 747,
+                    "hauteur": 84,
+                    "y": 806,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 70
+                },
+                "description": {
+                    "type": "texte",
+                    "x": 650,
+                    "largeur": 419,
+                    "hauteur": 82,
+                    "y": 910,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 50
+                },
+                "lieu": {
+                    "type": "texte",
+                    "x": 599,
+                    "largeur": 542,
+                    "hauteur": 62,
+                    "y": 1225,
+                    "font": "Inter_Regular.ttf",
+                    "size": 50
+                },
+                "font": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 5,
+                    "largeur": 1640,
+                    "hauteur": 1641
+                }
+            },
+            "objectif_publication": "test"
+        },
+        "test 001": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 001_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 001_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 001_fond.png",
+            "zones_modifiables": {
+                "produit": {
+                    "type": "texte",
+                    "x": 835,
+                    "largeur": 1419,
+                    "hauteur": 438,
+                    "y": 45,
+                    "font": "Inter_BlackItalic.ttf",
+                    "size": 130
+                },
+                "fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 529,
+                    "largeur": 3108,
+                    "hauteur": 2580
+                }
+            },
+            "objectif_publication": "test"
+        },
+        "test000": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test000_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test000_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test000_fond.png",
+            "zones_modifiables": {
+                "produit": {
+                    "type": "texte",
+                    "x": 861,
+                    "largeur": 1343,
+                    "hauteur": 433,
+                    "y": 34,
+                    "font": "Inter_BlackItalic.ttf",
+                    "size": 175
+                },
+                "fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 518,
+                    "largeur": 3102,
+                    "hauteur": 2589
+                }
+            },
+            "objectif_publication": "test"
+        },
+        "test 01": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 01_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 01_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\AFRICA TECHNOLOGIE TEST\\test 01_fond.png",
+            "zones_modifiables": {
+                "fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 4096,
+                    "hauteur": 1023
+                }
+            },
+            "objectif_publication": "test"
+        }
+    },
+    "TMC": {
+        "Recrutement_bureau": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_bureau_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_bureau_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_bureau_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Recrutement_technicien": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_technicien_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_technicien_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Recrutement_technicien_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Présentation_produit": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Présentation_produit_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Présentation_produit_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\TMC\\Présentation_produit_fond.png",
+            "zones_modifiables": {
+                "Nom_produit": {
+                    "type": "texte",
+                    "x": 169,
+                    "largeur": 2387,
+                    "hauteur": 152,
+                    "y": 345,
+                    "font": "Inter_Black.ttf",
+                    "size": 150,
+                    "alignement": "left"
+                },
+                "Référence": {
+                    "type": "texte",
+                    "x": 176,
+                    "largeur": 1243,
+                    "hauteur": 151,
+                    "y": 518,
+                    "font": "Inter_Italic.ttf",
+                    "size": 150,
+                    "alignement": "left"
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 704,
+                    "largeur": 1699,
+                    "hauteur": 114,
+                    "y": 2759,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100,
+                    "alignement": "center"
+                },
+                "image": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 769,
+                    "largeur": 3109,
+                    "hauteur": 2340
+                }
+            },
+            "objectif_publication": "Produits_SKF"
+        }
+    },
+    "ITAC": {
+        "Recrutement_bureau": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_bureau_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_bureau_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_bureau_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        },
+        "Recrutement_technicien": {
+            "base_reference": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_technicien_base.png",
+            "calque_fixe": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_technicien_overlay.png",
+            "fond_defaut": "C:\\Users\\DanielleChoupou\\Desktop\\IA_FLYERS\\backend\\templates\\ITAC\\Recrutement_technicien_fond.png",
+            "zones_modifiables": {
+                "Titre": {
+                    "type": "texte",
+                    "x": 141,
+                    "largeur": 2892,
+                    "hauteur": 283,
+                    "y": 903,
+                    "font": "Inter_Black.ttf",
+                    "size": 250
+                },
+                "Poste": {
+                    "type": "texte",
+                    "x": 580,
+                    "largeur": 2277,
+                    "hauteur": 207,
+                    "y": 1345,
+                    "font": "Inter_SemiBold.ttf",
+                    "size": 150
+                },
+                "Description": {
+                    "type": "texte",
+                    "x": 179,
+                    "largeur": 2688,
+                    "hauteur": 335,
+                    "y": 1635,
+                    "font": "Inter_Italic.ttf",
+                    "size": 120
+                },
+                "Lieu": {
+                    "type": "texte",
+                    "x": 822,
+                    "largeur": 1586,
+                    "hauteur": 124,
+                    "y": 2309,
+                    "font": "Inter_Regular.ttf",
+                    "size": 100
+                },
+                "image_fond": {
+                    "type": "image",
+                    "x": 0,
+                    "y": 0,
+                    "largeur": 3110,
+                    "hauteur": 3110
+                }
+            },
+            "objectif_publication": "Recrutement"
+        }
+    }
+}

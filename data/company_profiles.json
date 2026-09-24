@@ -1,0 +1,656 @@
+{
+    "LF": {
+        "nom_officiel": "LF COMPANY",
+        "secteur_activite": "est une société de services du numérique (SSN) basée au Cameroun, spécialisée dans la transformation digitale, la Business Intelligence (Power BI) et l'intégration de solutions ERP (Odoo)",
+        "mission": "Accompagner les entreprises dans leur transformation digitale en libérant la puissance de leurs données et en sécurisant leurs infrastructures, tout en propulsant la carrière des talents tech.",
+        "expertises_techniques": {
+            "Business Intelligence": [
+                "Dataviz",
+                "Modélisation de données",
+                "Reporting décisionnel",
+                "KPIs de performance"
+            ],
+            "Data": [
+                "Data Engineering",
+                "Data Science",
+                "Gouvernance des données",
+                "Cloud Data"
+            ],
+            "Applications Mobiles": [
+                "Développement iOS",
+                "Développement Android",
+                "Applications hybrides / Cross-platform",
+                "UI/UX Design"
+            ],
+            "Solutions ERP": [
+                "Mise en place et optimisation de l'environnement Odoo pour la gestion d'entreprise."
+            ],
+            "Sécurité Informatique": [
+                "Audit de sécurité",
+                "Cybersécurité",
+                "Protection des données / RGPD",
+                "Gestion des vulnérabilités"
+            ],
+            "Communication Digitale": [
+                "Stratégie de contenu",
+                "Gestion des réseaux sociaux",
+                "Identité de marque",
+                "Marketing digital"
+            ],
+            "Formation": [
+                "Upskilling",
+                "Certifications IT",
+                "Ateliers tech",
+                "Requalification professionnelle"
+            ]
+        },
+        "charte_editoriale": {
+            "style": "professionnel, moderne, dynamique et axé sur l'expertise",
+            "niveau_formalite": "élevé (utilisation du 'vous' de politesse obligatoire)",
+            "regles_strictes": {
+                "emojis": true,
+                "hashtags": true,
+                "interdictions": [
+                    "Pas d'abréviations familières",
+                    "Pas de jargon trop obscur sans explication brute"
+                ]
+            },
+            "structure_des_reponses": "Introduction directe, corps du texte en listes à puces pour la lisibilité en fonction de ce qu'on veut transmettre mais pas obligatoire, conclusion orientée vers l'action ou la signature."
+        },
+        "public_cible": {
+            "recrutement": [
+                "Jeunes talents tech (jeunes diplômés)",
+                "Développeurs (Fullstack, Mobile, Front, Back, IA)",
+                "Analystes data (Data Analysts, Data Scientists)",
+                "Consultants IT & Chefs de projets",
+                "Intégrateur odoo",
+                "Experts en cybersécurité",
+                "Professionnels de la communication digitale"
+            ],
+            "clients_frequent": [
+                "Directeurs des Systèmes d'Information (DSI)",
+                "Responsables Innovation / Transformation digitale",
+                "PME et Grandes entreprises en transition technologique"
+            ]
+        },
+        "piliers_culturels": {
+            "principes": [
+                "Innovation : Anticiper les tendances technologiques.",
+                "Excellence : Livrer des projets de haute qualité technique.",
+                "Apprentissage continu : Partager et enrichir les connaissances en permanence."
+            ],
+            "valeurs": [
+                "passion pour ce que l'on fait ",
+                "collaboration et esprit d'équipe",
+                "travail",
+                "humilité et ouverture d'esprit",
+                "confiance"
+            ],
+            "arguments_recrutement": [
+                "Projets innovants et stimulants (Tech stack moderne).",
+                "Montée en compétences rapide (Accompagnement, Formations internes, Certifications).",
+                "Environnement collaboratif axé sur l'entraide et l'intelligence collective."
+            ]
+        },
+        "lexique_et_seo": {
+            "mots_cles_principaux": [
+                "transformation digitale",
+                "innovation technologique",
+                "data engineering",
+                "business intelligence",
+                "expertise IT",
+                "performance d'entreprise",
+                "cybersécurité"
+            ],
+            "vocabulaire_favorise": [
+                "propulser",
+                "optimiser",
+                "sécuriser",
+                "valoriser",
+                "synergie",
+                "avenir numérique"
+            ],
+            "termes_a_eviter": [
+                "low-cost",
+                "sous-traitance",
+                "codage informatique (préférer développement logiciel)"
+            ]
+        },
+        "elements_de_marque": {
+            "signature_employeur": "Rejoignez une équipe qui innove.",
+            "appel_a_l_action_standard": "Prêt à propulser votre carrière ? Contactez nos recruteurs dès aujourd'hui.",
+            "canaux_privilegies": [
+                "LinkedIn",
+                "Site institutionnel",
+                "Plateformes de recrutement tech",
+                "Facebook"
+            ]
+        }
+    },
+    "CAMCI": {
+        "nom_officiel": "CAMCI (Société Camerounaise de Commerce et de Représentation Industrielle)",
+        "groupe_appartenance": "Groupe SOGAFRIC",
+        "secteur_activite": "Distribution et Représentation Industrielle",
+        "mission": "Fournir aux entreprises camerounaises des équipements de grandes marques mondiales et assurer leur maintenance technique pour maximiser la disponibilité de leur outil de production.",
+        "divisions_et_marques": {
+            "Industrie": {
+                "activites": [
+                    "Compresseurs industriels",
+                    "Générateurs",
+                    "Solutions de filtration",
+                    "Outillage professionnel"
+                ],
+                "marques_cles": [
+                    "ATLAS COPCO",
+                    "FLEETGUARD",
+                    "FACOM"
+                ]
+            },
+            "Agro_et_Foresterie": {
+                "activites": [
+                    "Tronçonneuses",
+                    "Débroussailleuses",
+                    "Motoculteurs",
+                    "Équipements de protection"
+                ],
+                "marques_cles": [
+                    "STIHL (Réseau STIHL-SHOP)"
+                ]
+            },
+            "Bureautique": {
+                "activites": [
+                    "Systèmes d'impression professionnels",
+                    "Solutions de reprographie et de numérisation"
+                ],
+                "marques_cles": [
+                    "CANON",
+                    "XEROX"
+                ]
+            }
+        },
+        "ancrage_local": {
+            "siege_social": "Quartier Bali, Douala, Cameroun",
+            "reseau_agences": [
+                "Douala",
+                "Yaoundé",
+                "Bafoussam",
+                "Bertoua",
+                "Ebolowa",
+                "Kribi"
+            ],
+            "services_integres": [
+                "Importation",
+                "Transit",
+                "Mise en service",
+                "Service Après-Vente (SAV) / Pièces de rechange d'origine"
+            ]
+        },
+        "charte_editoriale": {
+            "style": "robuste, expert et axé sur la confiance",
+            "niveau_formalite": "élevé (utilisation du 'vous' obligatoire)",
+            "regles_strictes": {
+                "emojis": false,
+                "hashtags": true,
+                "interdictions": [
+                    "Ne pas confondre avec une entreprise de BTP ou de génie civil",
+                    "Interdiction d'utiliser des émojis"
+                ]
+            },
+            "structure_des_reponses": "Focus direct sur la performance du matériel, la garantie constructeur et la disponibilité des pièces de rechange."
+        },
+        "public_cible": {
+            "clients": [
+                "Exploitants forestiers",
+                "Acteurs industriels et agricoles",
+                "Responsables d'ateliers et Directeurs techniques",
+                "Directeurs des Systèmes d'Information et Services Généraux"
+            ],
+            "recrutement": [
+                "Ingénieurs mécaniques / électriques",
+                "Techniciens de maintenance industrielle / SAV",
+                "Commerciaux techniques B2B"
+            ]
+        },
+        "piliers_culturels": {
+            "principes": [
+                "Fiabilité : Garantir la continuité d'exploitation des clients.",
+                "Proximité : Être présent au plus près du terrain avec 6 agences.",
+                "Excellence technique : Maîtriser le support technique des marques représentées."
+            ],
+            "valeurs": [
+                "rigueur",
+                "sens du service client",
+                "professionnalisme",
+                "esprit d'équipe",
+                "pérennité"
+            ],
+            "arguments_recrutement": [
+                "Travailler avec les équipements des leaders mondiaux.",
+                "Formations techniques spécialisées.",
+                "Stabilité au sein d'un groupe structuré."
+            ]
+        },
+        "lexique_et_seo": {
+            "mots_cles_principaux": [
+                "représentation industrielle Cameroun",
+                "équipement forestier Douala",
+                "SAV industriel",
+                "distributeur officiel Stihl",
+                "solutions d'impression Canon Xerox",
+                "compresseur Atlas Copco"
+            ],
+            "vocabulaire_favorise": [
+                "durabilité",
+                "disponibilité machine",
+                "pièces d'origine",
+                "support technique",
+                "réseau national"
+            ],
+            "termes_a_eviter": [
+                "quincaillerie",
+                "revente simple (préférer représentant officiel)"
+            ]
+        },
+        "elements_de_marque": {
+            "signature_institutionnelle": "Le partenaire de votre performance industrielle.",
+            "appel_a_l_action_standard": "Contactez l'agence CAMCI la plus proche pour vos besoins en équipements et maintenance.",
+            "canaux_privilegies": [
+                "LinkedIn",
+                "Réseau d'agences physiques"
+            ]
+        }
+    },
+    "FIAG": {
+        "nom_officiel": "FIAG SA (Fomento Industrial y Agrícola de Guinea)",
+        "groupe_appartenance": "Groupe SOGAFRIC",
+        "secteur_activite": "Distribution de Matériel Industriel, Forestier, Agricole et BTP",
+        "mission": "Accompagner les entreprises et chantiers d'Afrique centrale en leur fournissant des équipements industriels de grandes marques et un support de maintenance spécialisé.",
+        "divisions_et_marques": {
+            "Industrie_et_Foresterie": {
+                "activites": [
+                    "Équipements et outils robustes pour travaux intensifs",
+                    "Solutions de filtration moteur",
+                    "Roulements industriels de haute performance"
+                ],
+                "marques_cles": [
+                    "STIHL",
+                    "FLEETGUARD",
+                    "SKF"
+                ]
+            },
+            "Automobile_et_Energie": {
+                "activites": [
+                    "Pneus et solutions de mobilité",
+                    "Batteries de démarrage et d'énergie industrielle",
+                    "Groupes électrogènes",
+                    "Installations électriques et pétrolières"
+                ],
+                "marques_cles": [
+                    "CONTINENTAL",
+                    "FULMEN"
+                ]
+            },
+            "Maintenance_et_Hydraulique": {
+                "activites": [
+                    "Maintenance d'équipements électriques",
+                    "Maintenance d'installations pétrolières et hydrauliques"
+                ]
+            }
+        },
+        "ancrage_local": {
+            "pays_operation": "Guinée équatoriale",
+            "comptoirs_principaux": [
+                "Malabo",
+                "Bata"
+            ],
+            "services_integres": [
+                "Distribution & Importation",
+                "Gestion de stock de rechange (+ de 4 000 références)",
+                "Service maintenance spécialisé sur site"
+            ]
+        },
+        "charte_editoriale": {
+            "langue_de_travail": "Français (avec obligation de proposer une version en Espagnol)",
+            "consigne_multilingue": "FIAG étant localisé en Guinée équatoriale, l'agent IA doit toujours formuler ses propositions en français, tout en y joignant systématiquement ou sur demande une version traduite en espagnol.",
+            "style": "direct, robuste, technique et axé sur la durabilité du matériel",
+            "niveau_formalite": "moyen à élevé (ton professionnel adapté aux ingénieurs et chefs de chantier)",
+            "regles_strictes": {
+                "emojis": false,
+                "hashtags": true,
+                "interdictions": [
+                    "Ne pas réduire FIAG au simple BTP",
+                    "Éviter les termes trop génériques comme 'quincaillerie' ou 'outillage'",
+                    "Ne pas utiliser de langage familier ou d'abréviations informelles"
+                ]
+            },
+            "structure_des_reponses": "Focus immédiat sur la disponibilité des pièces en stock, la robustesse des marques distribuées et l'expertise du service maintenance."
+        },
+        "public_cible": {
+            "clients": [
+                "Professionnels et entreprises du BTP / Travaux publics",
+                "Exploitants forestiers et agricoles",
+                "Responsables de flotes automobiles",
+                "Directeurs techniques et gestionnaires d'installations pétrolières"
+            ],
+            "recrutement": [
+                "Techniciens de maintenance (électricité, hydraulique)",
+                "Ingénieurs industriels",
+                "Commerciaux de comptoir technique"
+            ]
+        },
+        "piliers_culturels": {
+            "principes": [
+                "Fiabilité : Fournir du matériel d'origine de renommée mondiale.",
+                "Continuité : Assurer le SAV et la maintenance des installations critiques.",
+                "Performance : Garantir des équipements conçus pour les environnements intensifs."
+            ],
+            "valeurs": [
+                "robustesse",
+                "qualité",
+                "productivité terrain",
+                "réactivité technique",
+                "stabilité"
+            ],
+            "arguments_recrutement": [
+                "Évolution au sein d'une structure adossée à un grand groupe (SOGAFRIC).",
+                "Diversité technique des projets (pétrole, électricité, hydraulique, mécanique).",
+                "Travail avec des marques leaders de l'industrie."
+            ]
+        },
+        "lexique_et_seo": {
+            "mots_cles_principaux": [
+                "matériel industriel guinée équatoriale",
+                "importation pièces détachées stihl",
+                "roulements skf industrie",
+                "maintenance groupe electrogene",
+                "batteries fulmen industrie",
+                "fournisseur btp travaux publics"
+            ],
+            "vocabulaire_favorise": [
+                "robustesse",
+                "durabilité",
+                "disponibilité stock",
+                "continuité opérationnelle",
+                "équipements de marque",
+                "maintenance spécialisée"
+            ],
+            "termes_a_eviter": [
+                "revente d'occasion",
+                "quincaillerie générale (préférer distributeur industriel agréé)"
+            ]
+        },
+        "elements_de_marque": {
+            "signature_institutionnelle": "La qualité qui dure. ",
+            "appel_a_l_action_standard": "Consultez nos experts en comptoir pour vos besoins en pièces détachées et équipements industriels.",
+            "canaux_privilegies": [
+                "Réseau de points de vente physiques",
+                "LinkedIn"
+            ]
+        }
+    },
+    "AFRICA TECHNOLOGIE TEST": {
+        "nom_officiel": "Africa Technologie Sarl",
+        "secteur_activite": "Technologie , prestations de services informatiques ",
+        "mission": "c'est une entreprise qui se charge de la vente du matériel informatique ,  du devellopement des sites web et informatiques",
+        "charte_editoriale": {
+            "style": "professionnel",
+            "niveau_formalite": "moyenne",
+            "regles_strictes": {
+                "emojis": false,
+                "hashtags": false,
+                "interdictions": []
+            }
+        }
+    },
+    
+    "TMC": {
+        "nom_officiel": "TMC (Transmissions Manutention Cameroun)",
+        "groupe_appartenance": "Groupe SOGAFRIC",
+        "secteur_activite": "Fournitures industrielles, transmission de puissance, manutention et maintenance spécialisée",
+        "mission": "Fournir des équipements industriels de haute qualité, assurer l'optimisation des approvisionnements à travers une centrale d'achat performante et garantir la maintenance des installations critiques pour maximiser la disponibilité des outils de production de nos clients industriels.",
+        "divisions_et_marques": {
+            "Transmission_de_puissance_et_Mecanique": {
+                "activites": [
+                    "Roulements et paliers de haute précision",
+                    "Moteurs électriques et motoréducteurs",
+                    "Pignons, chaînes et courroies de transmission",
+                    "Solutions d'étanchéité, colles, adhésifs et lubrifiants industriels",
+                    "Outillage professionnel et de maintenance"
+                ],
+                "marques_cles": [
+                    "SKF",
+                    "Timken",
+                    "Leroy-Somer",
+                    "Sedis",
+                    "Texrope",
+                    "Henkel/Loctite",
+                    "Cofran",
+                    "KS Tools"
+                ]
+            },
+            "Equipements_Manutention_et_Robinetterie": {
+                "activites": [
+                    "Bandes transporteuses et solutions de manutention lourde",
+                    "Robinetterie industrielle et automatismes pour le contrôle, l'isolement et la régulation des fluides",
+                    "Accessoires de levage et de sécurisation des charges"
+                ],
+                "marques_cles": [
+                    "Joucomatic",
+                    "SYVECO",
+                    "MLT"
+                ]
+            }
+        },
+        "ancrage_local": {
+            "siege_social": "1871 Boulevard de la Liberté, Akwa, Douala, Cameroun",
+            "reseau_agences": [
+                "Douala",
+                "Yaoundé",
+                "Kribi"
+            ],
+            "services_integres": [
+                "Centrale d'achat et sourcing international d'équipements",
+                "Gestion de stock optimisée (+ de 10 000 références disponibles en réseau)",
+                "Audits techniques et diagnostics d'experts sur site",
+                "Assistance à l'installation, montage et mise en service",
+                "Service Après-Vente (SAV) réactif et fourniture de pièces de rechange d'origine"
+            ]
+        },
+        "charte_editoriale": {
+            "style": "technique, rigoureux, orienté vers la performance, l'optimisation industrielle et la fiabilité opérationnelle",
+            "niveau_formalite": "élevé (utilisation du 'vous' de politesse obligatoire)",
+            "regles_strictes": {
+                "emojis": false,
+                "hashtags": true,
+                "interdictions": [
+                    "Ne pas réduire l'activité à une simple quincaillerie ou à de la revente de détail",
+                    "Interdiction d'utiliser un ton familier, désinvolte ou approximatif",
+                    "Ne pas oser de jargon technique non contextualisé"
+                ]
+            },
+            "structure_des_reponses": "Focus direct sur l'expertise technique, la durabilité des marques de renom distribuées, la disponibilité des composants en stock et la réactivité du support de maintenance."
+        },
+        "public_cible": {
+            "clients": [
+                "Industries manufacturières et agroalimentaires",
+                "Acteurs de l'énergie, mines et carrières",
+                "Secteur pétrolier, gazier et pétrochimique",
+                "Cimenteries, ports, chantiers navals et entreprises de logistique"
+            ],
+            "recrutement": [
+                "Ingénieurs et techniciens supérieurs de maintenance industrielle",
+                "Commerciaux techniques B2B spécialisés en milieu industriel",
+                "Experts en supply chain, logistique et sourcing technique"
+            ]
+        },
+        "piliers_culturels": {
+            "principes": [
+                "Expertise Technique : Apporter des solutions sur-mesure validées par des audits rigoureux de terrain.",
+                "Qualité Garantie : Distribuer exclusivement des marques internationales de premier plan.",
+                "Proximité Opérationnelle : Assurer un accompagnement client de proximité à chaque étape critique des projets."
+            ],
+            "valeurs": [
+                "rigueur",
+                "fiabilité",
+                "excellence technique",
+                "réactivité",
+                "partenariat durable"
+            ],
+            "arguments_recrutement": [
+                "Évolution au sein d'une entreprise technique de référence adossée à un grand groupe.",
+                "Collaboration directe et enrichissante avec des partenaires industriels mondiaux.",
+                "Programmes de formation continue axés sur l'évolution et le transfert de compétences techniques."
+            ]
+        },
+        "lexique_et_seo": {
+            "mots_cles_principaux": [
+                "fournitures industrielles Cameroun",
+                "transmission de puissance Douala",
+                "roulements SKF Timken Cameroun",
+                "moteur électrique Leroy Somer",
+                "maintenance industrielle Douala",
+                "robinetterie industrielle Joucomatic",
+                "bandes transporteuses MLT"
+            ],
+            "vocabulaire_favorise": [
+                "optimisation",
+                "disponibilité machine",
+                "continuité d'exploitation",
+                "pièces d'origine",
+                "expertise technique",
+                "fiabilité mécanique"
+            ],
+            "termes_a_eviter": [
+                "quincaillerie générale",
+                "simple revente",
+                "magasin de pièces"
+            ]
+        },
+        "elements_de_marque": {
+            "signature_institutionnelle": "L'expert de vos solutions industrielles et de transmission de puissance.",
+            "appel_a_l_action_standard": "Contactez nos agences spécialisées pour auditer vos besoins en équipements de transmission et en maintenance industrielle.",
+            "canaux_privilegies": [
+                "LinkedIn",
+                "Réseau d'agences physiques au Cameroun",
+                "Plateforme web institutionnelle"
+            ]
+        }
+    },
+
+    
+    "ITAC": {
+        "nom_officiel": "ITAC Parts",
+        "groupe_appartenance": "Groupe SOGAFRIC",
+        "secteur_activite": "Import-export, commerce international et interentreprises de pièces détachées, matériels, outillages et équipements industriels",
+        "mission": "Assurer l'approvisionnement, le sourcing international et la logistique de pièces détachées de grandes marques pour soutenir les filiales et partenaires industriels du groupe en Afrique.",
+        "divisions_et_marques": {
+            "Sourcing_et_Logistique_Internationale": {
+                "activites": [
+                    "Centrale d'achat et approvisionnement international",
+                    "Exportation de pièces de rechange et équipements mécaniques",
+                    "Gestion de la chaîne logistique et transit B2B"
+                ],
+                "marques_cles": [
+                    "SKF",
+                    "Timken",
+                    "Leroy-Somer",
+                    "Sedis",
+                    "STIHL",
+                    "Fleetguard"
+                ]
+            },
+            "Equipements_et_Fournitures_Industrielles": {
+                "activites": [
+                    "Centralisation des commandes de matériels techniques",
+                    "Fourniture d'outillage professionnel et de composants de transmission"
+                ],
+                "marques_cles": [
+                    "KS Tools",
+                    "Henkel/Loctite",
+                    "Continental"
+                ]
+            }
+        },
+        "ancrage_local": {
+            "siege_social": "3 rue Ernest Gouin, 78290 Croissy-sur-Seine, France",
+            "reseau_agences": [
+                "Plateforme centrale d'achats et logistique internationale (France)"
+            ],
+            "services_integres": [
+                "Sourcing et négociation fournisseurs mondiaux",
+                "Consolidation de fret et logistique export",
+                "Support technique aux filiales et partenaires africains"
+            ]
+        },
+        "charte_editoriale": {
+            "style": "professionnel, rigoureux, orienté vers la chaîne d'approvisionnement et la fiabilité logistique",
+            "niveau_formalite": "élevé (utilisation du 'vous' de politesse obligatoire)",
+            "regles_strictes": {
+                "emojis": false,
+                "hashtags": true,
+                "interdictions": [
+                    "Ne pas réduire l'activité à de la simple revente de détail",
+                    "Interdiction d'utiliser un ton familier ou désinvolte"
+                ]
+            },
+            "structure_des_reponses": "Focus direct sur l'efficacité du sourcing, la fiabilité de l'exportation et l'accès direct aux pièces d'origine."
+        },
+        "public_cible": {
+            "clients": [
+                "Filiales industrielles et sociétés de distribution du groupe",
+                "Acteurs industriels nécessitant un approvisionnement international"
+            ],
+            "recrutement": [
+                "Acheteurs internationaux / Sourcing managers",
+                "Spécialistes en logistique et transit export",
+                "Gestionnaires de supply chain"
+            ]
+        },
+        "piliers_culturels": {
+            "principes": [
+                "Efficacité Logistique : Garantir l'acheminement sécurisé des équipements critiques.",
+                "Sourcing Exigeant : Travailler exclusivement avec des fabricants de premier plan.",
+                "Synergie Groupe : Appuyer efficacement les réseaux de distribution locaux."
+            ],
+            "valeurs": [
+                "rigueur",
+                "réactivité",
+                "fiabilité",
+                "professionnalisme",
+                "engagement"
+            ],
+            "arguments_recrutement": [
+                "Évolution au cœur des flux internationaux d'un grand groupe.",
+                "Expertise reconnue en commerce interentreprises et logistique globale."
+            ]
+        },
+        "lexique_et_seo": {
+            "mots_cles_principaux": [
+                "sourcing pièces industrielles",
+                "import export matériel industriel",
+                "centrale d'achat pièces de rechange",
+                "logistique internationale B2B"
+            ],
+            "vocabulaire_favorise": [
+                "approvisionnement",
+                "sourcing",
+                "traçabilité",
+                "pièces d'origine",
+                "chaîne logistique"
+            ],
+            "termes_a_eviter": [
+                "courtage de pacotille",
+                "intermédiaire simple"
+            ]
+        },
+        "elements_de_marque": {
+            "signature_institutionnelle": "Votre passerelle mondiale vers l'excellence industrielle.",
+            "appel_a_l_action_standard": "Contactez notre centrale pour optimiser vos flux d'approvisionnement en pièces industrielles.",
+            "canaux_privilegies": [
+                "Relations interentreprises",
+                "Réseau professionnel international"
+            ]
+        }
+    }
+
+}
