@@ -13,6 +13,7 @@ env/
 font_cache/
 generated_images/
 output/
+templates/
 *.log
 
 .pytest_cache/
