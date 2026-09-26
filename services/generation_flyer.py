@@ -1,14 +1,15 @@
-import io, json, os, requests
+import io, json, os
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from fastapi import HTTPException, UploadFile
 from fastapi.responses import Response
-from config import OUTPUT_DIR, BASE_DIR, FONTS_DIR
+from config import OUTPUT_DIR, BASE_DIR
 from supabase import create_client
 from services.IA import traduire_texte
 from dotenv import load_dotenv
+from services.polices import load_font,police_a_taille
 
 load_dotenv()
 
@@ -27,7 +28,7 @@ def resolve_path(raw):
     return p
 
 @lru_cache(maxsize=100)
-def load_image(raw):
+def _load_image_cached(raw):
     if not raw: return None
     path = resolve_path(raw)
     if path and path.exists():
@@ -38,67 +39,43 @@ def load_image(raw):
     except Exception as e:
         raise HTTPException(404, f"Fichier introuvable : {raw}") from e
 
+def load_image(raw):
+    return _load_image_cached(raw).copy() if raw else None
 
-GOOGLE_FONTS_KEY = os.getenv("GOOGLE_FONTS_API_KEY")
-FONT_CACHE = BASE_DIR / "font_cache"
-FONT_CACHE.mkdir(exist_ok=True)
+# ====================================================================== texte
 
-
-@lru_cache(maxsize=1)
-def google_fonts():
-    r = requests.get(
-        "https://www.googleapis.com/webfonts/v1/webfonts",
-        params={"key": GOOGLE_FONTS_KEY, "sort": "alpha"},
-        timeout=10
-    )
-    r.raise_for_status()
-    return {f["family"]: f for f in r.json()["items"]}
+def _largeur(draw, texte, font):
+    bbox = draw.textbbox((0, 0), texte, font=font)
+    return bbox[2] - bbox[0]
 
 
-@lru_cache(maxsize=200)
-def load_font(name, size, weight=400, style="normal"):
-    if str(name).lower().endswith((".ttf", ".otf")):
-        p = font_path(name)
-    else:
-        font = google_fonts().get(name)
+def _lignes(draw, texte, font, largeur):
+    lignes, ligne = [], ""
+    for mot in texte.split():
+        test = f"{ligne} {mot}".strip()
+        if _largeur(draw, test, font) <= largeur:
+            ligne = test
+        else:
+            if ligne:
+                lignes.append(ligne)
+            ligne = mot
+    if ligne:
+        lignes.append(ligne)
+    return lignes
 
-        if not font:
-            raise HTTPException(400, f"Police Google Fonts introuvable : {name}")
 
-        variant = (
-            "italic" if style == "italic" and weight == 400
-            else f"{weight}italic" if style == "italic"
-            else "regular" if weight == 400
-            else str(weight)
-        )
+def _hauteur_ligne(draw, font):
+    bbox = draw.textbbox((0, 0), "Ag", font=font)
+    return bbox[3] - bbox[1]
 
-        url = font.get("files", {}).get(variant)
 
-        if not url:
-            raise HTTPException(
-                400,
-                f"{name} ne possède pas la variante {weight} {style}."
-            )
-
-        p = FONT_CACHE / f"{name}_{variant}.ttf"
-
-        if not p.exists():
-            r = requests.get(url, timeout=20)
-            r.raise_for_status()
-            p.write_bytes(r.content)
-
-    try:
-        return ImageFont.truetype(str(p), size)
-    except Exception as e:
-        raise HTTPException(400, f"Police introuvable : {name}") from e
-
-def font_path(name):
-    p = Path(name)
-    if p.is_absolute() and p.exists(): return p
-    for c in (FONTS_DIR / p.name, BASE_DIR / p, p):
-        if c.exists(): return c
-    return p
-
+def _tient(draw, texte, font, largeur, hauteur):
+    lignes = _lignes(draw, texte, font, largeur)
+    if not lignes:
+        return True
+    if any(_largeur(draw, l, font) > largeur for l in lignes):
+        return False  # un mot seul déborde en largeur
+    return _hauteur_ligne(draw, font) * len(lignes) <= hauteur
 
 
 def draw_centered_in_zone(draw, text, zone, font):
@@ -106,35 +83,29 @@ def draw_centered_in_zone(draw, text, zone, font):
     y = int(zone.get("y", 0))
     largeur = int(zone.get("largeur", 0))
     hauteur = int(zone.get("hauteur", 0))
-    taille = font.size
-    taille_minimum = 20
+    chemin = font.path
+    taille_max = int(font.size)
+    taille_min = min(20, taille_max)
 
-    while taille >= taille_minimum:
-        font = ImageFont.truetype(font.path, taille)
-        mots, lignes, ligne = text.split(), [], ""
+    # Recherche dichotomique de la plus grande taille qui tient dans la zone.
+    # Avant : on retirait 1 px à la fois en recréant la police à chaque tour, et
+    # hauteur_totale n'existait pas si la taille de départ était < 20 (NameError).
+    bas, haut, retenue = taille_min, taille_max, taille_min
+    while bas <= haut:
+        milieu = (bas + haut) // 2
+        if _tient(draw, text, police_a_taille(chemin, milieu), largeur, hauteur):
+            retenue, bas = milieu, milieu + 1
+        else:
+            haut = milieu - 1
 
-        for mot in mots:
-            test = f"{ligne} {mot}".strip()
-            bbox = draw.textbbox((0, 0), test, font=font)
-            if bbox[2] - bbox[0] <= largeur:
-                ligne = test
-            else:
-                if ligne: lignes.append(ligne)
-                ligne = mot
+    font = police_a_taille(chemin, retenue)
+    lignes = _lignes(draw, text, font, largeur)
+    if not lignes:
+        return
 
-        if ligne: lignes.append(ligne)
-
-        bbox = draw.textbbox((0, 0), "Ag", font=font)
-        hauteur_ligne = bbox[3] - bbox[1]
-        hauteur_totale = hauteur_ligne * len(lignes)
-
-        if hauteur_totale <= hauteur:
-            break
-
-        taille -= 1
-
-    if hauteur_totale > hauteur:
-        lignes = lignes[:max(1, hauteur // hauteur_ligne)]
+    hauteur_ligne = max(1, _hauteur_ligne(draw, font))
+    if hauteur_ligne * len(lignes) > hauteur:
+        lignes = lignes[: max(1, hauteur // hauteur_ligne)]
 
     pos_y = y + (hauteur - hauteur_ligne * len(lignes)) / 2
     alignement = zone.get("alignement", "center")
@@ -150,12 +121,7 @@ def draw_centered_in_zone(draw, text, zone, font):
         else:
             pos_x = x + (largeur - largeur_ligne) / 2
 
-        draw.text(
-            (pos_x, pos_y - bbox[1]),
-            ligne,
-            font=font,
-            fill=(255, 255, 255, 255)
-        )
+        draw.text((pos_x, pos_y - bbox[1]), ligne, font=font, fill=(255, 255, 255, 255))
         pos_y += hauteur_ligne
 
 

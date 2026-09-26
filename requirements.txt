@@ -1,5 +1,5 @@
 fastapi
-uvicorn
+uvicorn[standard]
 Pillow
 python-multipart
 python-dotenv
@@ -7,3 +7,4 @@ requests
 httpx
 groq
 huggingface_hub
+redis

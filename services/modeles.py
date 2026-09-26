@@ -1,7 +1,10 @@
 from pathlib import Path
 from fastapi import HTTPException
-from services.storage import save_configs
-from config import TEMPLATES_DIR
+from services.storage import (
+    save_configs,
+    template_storage_path,
+    upload_template_file,
+)
 
 def normalize(name: str) -> str:
     return (name or "").strip().upper()
@@ -56,16 +59,14 @@ def ajouter_modele(data, templates, profiles):
     return {"status": "ok", "message": f"Modèle {modele} enregistré.", "modele": modele, "objectif_publication": objectif, "config": config}
 
 def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes, fond_bytes):
-    dossier = TEMPLATES_DIR / entreprise
-    dossier.mkdir(parents=True, exist_ok=True)
-    paths = {
-        "base_reference": dossier / f"{modele}_base.png",
-        "calque_fixe": dossier / f"{modele}_overlay.png",
-        "fond_defaut": dossier / f"{modele}_fond.png",
+    return {
+        key: upload_template_file(entreprise, modele, key, content)
+        for key, content in (
+            ("base_reference", base_bytes),
+            ("calque_fixe", overlay_bytes),
+            ("fond_defaut", fond_bytes),
+        )
     }
-    for key, content in (("base_reference", base_bytes), ("calque_fixe", overlay_bytes), ("fond_defaut", fond_bytes)):
-        paths[key].write_bytes(content)
-    return {k: str(v) for k, v in paths.items()}
 
 def obtenir_fichier_modele(entreprise, modele, fichier, templates):
     entreprise=normalize(entreprise)
@@ -80,4 +81,4 @@ def obtenir_fichier_modele(entreprise, modele, fichier, templates):
     if not chemin:
         raise HTTPException(404,"Fichier introuvable.")
 
-    return Path(chemin)
+    return template_storage_path(entreprise, modele, fichier)

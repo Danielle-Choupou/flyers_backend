@@ -6,12 +6,14 @@ from services.entreprises import lister_entreprises, obtenir_entreprise, ajouter
 from services.modeles import ajouter_modele, obtenir_modele, lister_modeles, lister_objectifs, save_uploaded_template_files, obtenir_fichier_modele
 from services.images import  generate_ai_image
 from services.IA import CaptionRequest, generate_caption
-from services.generation_flyer import generate, google_fonts
-from config import TEMPLATES_DIR
-from fastapi.responses import FileResponse
-from services.storage import load_configs, save_configs, supabase
+from services.generation_flyer import generate
+from services import cache
+from fastapi.responses import Response
+from services.storage import delete_template, download_template_file, load_configs, save_configs, save_template_config, supabase, upload_template_file
 from functools import lru_cache
 import hashlib
+from services.generation_flyer import generate
+from services.polices import resume_polices
 
 app=FastAPI(title="Générateur de Flyers - Backend")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
@@ -22,26 +24,12 @@ def reload():
     COMPANY_PROFILES,TEMPLATES_CONFIG=load_configs()
 
 @app.get('/health')
-def health(): return {'status':'ok','message':'Backend opérationnel'}
-@app.get('/fonts')
-@lru_cache(maxsize=1)
-def get_google_fonts():
-    result={}
-    for nom,font in google_fonts().items():
-        variants=font.get("files",{})
-        weights=set()
-        styles=set()
-        for v in variants:
-            style="italic" if v.endswith("italic") else "normal"
-            poids=v.replace("italic","")
-            weights.add(400 if poids in ("","regular") else int(poids))
-            styles.add(style)
-        result[nom]={"weights":sorted(weights),"styles":sorted(styles)}
-    return result
+def health(): return {'status':'ok','message':'Backend opérationnel','cache':'redis'if cache.actif() else 'désactivé'}
+
 
 @app.get('/fonts')
 def get_fonts():
-    return get_google_fonts()
+    return resume_polices()
 
 @app.post('/reload-config')
 def reload_config():
@@ -60,6 +48,17 @@ def delete_entreprise(nom:str): return supprimer_entreprise(nom,COMPANY_PROFILES
 def post_modele(data:dict): return ajouter_modele(data,TEMPLATES_CONFIG,COMPANY_PROFILES)
 @app.get('/modeles/{entreprise}')
 def get_modeles(entreprise:str): return lister_modeles(entreprise,TEMPLATES_CONFIG)
+@app.delete('/modeles/{entreprise}/{modele}')
+def delete_modele(entreprise:str,modele:str):
+    ent=entreprise.strip().upper(); nom=modele.strip()
+    if ent not in TEMPLATES_CONFIG or nom not in TEMPLATES_CONFIG[ent]:
+        raise HTTPException(404,'Modèle introuvable.')
+    try:
+        delete_template(ent, nom)
+    except Exception as e:
+        raise HTTPException(500, f'Erreur pendant la suppression du modèle : {e}') from e
+    TEMPLATES_CONFIG[ent].pop(nom, None)
+    return {'status':'ok','message':f'Modèle {nom} supprimé.','entreprise':ent,'modele':nom}
 @app.post('/modeles/complet')
 async def post_modele_complet(entreprise:str=Form(...),modele:str=Form(...),objectif_publication:str=Form(...),base_reference:UploadFile=File(...),calque_fixe:UploadFile=File(...),fond_defaut:UploadFile=File(...)):
     ent=entreprise.strip().upper(); nom=modele.strip(); obj=objectif_publication.strip()
@@ -81,30 +80,37 @@ def put_modele(entreprise:str,modele:str,data:dict):
     if ent not in TEMPLATES_CONFIG or nom not in TEMPLATES_CONFIG[ent]: raise HTTPException(404,'Modèle introuvable.')
     cfg=TEMPLATES_CONFIG[ent][nom]; cfg['zones_modifiables']=data.get('zones_modifiables',cfg.get('zones_modifiables',{}))
     if data.get('objectif_publication'): cfg['objectif_publication']=data['objectif_publication']
-    from services.storage import save_configs
-    save_configs(COMPANY_PROFILES,TEMPLATES_CONFIG)
+    try:
+        save_template_config(ent, nom, cfg)
+    except Exception as e:
+        raise HTTPException(500, f'Erreur pendant la sauvegarde du modèle : {e}') from e
     return {'status':'ok','config':cfg}
 @app.put('/modeles/{entreprise}/{modele}/fichiers')
-async def put_modele_fichiers(entreprise:str,modele:str,base_reference:Optional[UploadFile]=File(None),calque_fixe:Optional[UploadFile]=File(None),fond_defaut:Optional[UploadFile]=File(None)):
+async def put_modele_fichiers(entreprise:str,modele:str,objectif_publication:Optional[str]=Form(None),zones_modifiables:str=Form('{}'),base_reference:Optional[UploadFile]=File(None),calque_fixe:Optional[UploadFile]=File(None),fond_defaut:Optional[UploadFile]=File(None)):
     ent=entreprise.strip().upper(); nom=modele.strip()
     if ent not in TEMPLATES_CONFIG or nom not in TEMPLATES_CONFIG[ent]: raise HTTPException(404,'Modèle introuvable.')
-    if not any([base_reference,calque_fixe,fond_defaut]): raise HTTPException(400,'Aucun fichier à remplacer.')
+    try:
+        zones = json.loads(zones_modifiables)
+    except Exception as e:
+        raise HTTPException(400,'Format des zones incorrect.') from e
+    if not isinstance(zones, dict): raise HTTPException(400,'Les zones doivent être un objet JSON.')
 
     cfg=TEMPLATES_CONFIG[ent][nom]
-    dossier=TEMPLATES_DIR/ent
-    dossier.mkdir(parents=True,exist_ok=True)
-
-    for fichier,cle,suffixe in [
-        (base_reference,'base_reference','_base.png'),
-        (calque_fixe,'calque_fixe','_overlay.png'),
-        (fond_defaut,'fond_defaut','_fond.png')
+    cfg['zones_modifiables']=zones
+    if objectif_publication and objectif_publication.strip():
+        cfg['objectif_publication']=objectif_publication.strip()
+    for fichier,cle in [
+        (base_reference,'base_reference'),
+        (calque_fixe,'calque_fixe'),
+        (fond_defaut,'fond_defaut')
     ]:
         if fichier and fichier.filename:
-            chemin=dossier/f'{nom}{suffixe}'
-            chemin.write_bytes(await fichier.read())
-            cfg[cle]=str(chemin)
+            cfg[cle]=upload_template_file(ent, nom, cle, await fichier.read())
 
-    save_configs(COMPANY_PROFILES,TEMPLATES_CONFIG)
+    try:
+        save_template_config(ent, nom, cfg)
+    except Exception as e:
+        raise HTTPException(500, f'Erreur pendant la sauvegarde du modèle : {e}') from e
     return {'status':'ok','config':cfg}
 
 @app.get('/modeles/{entreprise}/{modele}')
@@ -115,11 +121,12 @@ def get_modele_fichier(entreprise:str,modele:str,fichier:str):
         raise HTTPException(400,'Fichier invalide.')
 
     chemin=obtenir_fichier_modele(entreprise,modele,fichier,TEMPLATES_CONFIG)
+    try:
+        data = download_template_file(chemin)
+    except Exception as e:
+        raise HTTPException(404,'Fichier introuvable.') from e
 
-    if not chemin.exists():
-        raise HTTPException(404,'Fichier introuvable.')
-
-    return FileResponse(chemin)
+    return Response(content=data, media_type='image/png')
 @app.get('/objectifs/{entreprise}')
 def get_objectifs(entreprise:str): return lister_objectifs(entreprise,TEMPLATES_CONFIG)
 @app.post('/generate-caption')
