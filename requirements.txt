@@ -8,3 +8,4 @@ httpx
 groq
 huggingface_hub
 redis
+supabase

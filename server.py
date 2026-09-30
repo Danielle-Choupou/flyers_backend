@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from services.entreprises import lister_entreprises, obtenir_entreprise, ajouter_entreprise, modifier_entreprise, supprimer_entreprise
 from services.modeles import ajouter_modele, obtenir_modele, lister_modeles, lister_objectifs, save_uploaded_template_files, obtenir_fichier_modele
 from services.images import  generate_ai_image
-from services.IA import CaptionRequest, generate_caption
+from services.IA import CaptionAdaptationRequest, CaptionRequest, adapt_caption, generate_caption
 from services.generation_flyer import generate
 from services import cache
 from fastapi.responses import Response
@@ -131,6 +131,8 @@ def get_modele_fichier(entreprise:str,modele:str,fichier:str):
 def get_objectifs(entreprise:str): return lister_objectifs(entreprise,TEMPLATES_CONFIG)
 @app.post('/generate-caption')
 def caption(request:CaptionRequest): return generate_caption(request,COMPANY_PROFILES)
+@app.post('/adapt-caption')
+def adapt_caption_route(request:CaptionAdaptationRequest): return adapt_caption(request,COMPANY_PROFILES)
 @app.post('/generate-image-ia')
 def image_ia(data:dict): return generate_ai_image(data.get('prompt',''))
 @app.post('/historique')
