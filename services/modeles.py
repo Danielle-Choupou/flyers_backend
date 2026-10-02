@@ -1,7 +1,7 @@
 from pathlib import Path
 from fastapi import HTTPException
 from services.storage import (
-    save_configs,
+    create_template_record,
     template_storage_path,
     upload_template_file,
 )
@@ -53,9 +53,10 @@ def ajouter_modele(data, templates, profiles):
     required = ("base_reference", "calque_fixe", "fond_defaut", "zones_modifiables")
     if any(k not in config for k in required):
         raise HTTPException(400, "Configuration du modèle incomplète.")
+    config = dict(config)
     config["objectif_publication"] = objectif
+    create_template_record(entreprise, modele, config)
     templates[entreprise][modele] = config
-    save_configs(profiles, templates)
     return {"status": "ok", "message": f"Modèle {modele} enregistré.", "modele": modele, "objectif_publication": objectif, "config": config}
 
 def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes, fond_bytes):

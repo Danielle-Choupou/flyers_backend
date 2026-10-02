@@ -2,7 +2,7 @@ import io, json, os
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps
 from fastapi import HTTPException, UploadFile
 from fastapi.responses import Response
 from config import OUTPUT_DIR, BASE_DIR
@@ -78,7 +78,7 @@ def _tient(draw, texte, font, largeur, hauteur):
     return _hauteur_ligne(draw, font) * len(lignes) <= hauteur
 
 
-def draw_centered_in_zone(draw, text, zone, font):
+def draw_centered_in_zone(draw, text, zone, font, color="#FFFFFF"):
     x = int(zone.get("x", 0))
     y = int(zone.get("y", 0))
     largeur = int(zone.get("largeur", 0))
@@ -109,6 +109,10 @@ def draw_centered_in_zone(draw, text, zone, font):
 
     pos_y = y + (hauteur - hauteur_ligne * len(lignes)) / 2
     alignement = zone.get("alignement", "center")
+    try:
+        fill = ImageColor.getcolor(color, "RGBA")
+    except (TypeError, ValueError):
+        fill = (255, 255, 255, 255)
 
     for ligne in lignes:
         bbox = draw.textbbox((0, 0), ligne, font=font)
@@ -121,7 +125,7 @@ def draw_centered_in_zone(draw, text, zone, font):
         else:
             pos_x = x + (largeur - largeur_ligne) / 2
 
-        draw.text((pos_x, pos_y - bbox[1]), ligne, font=font, fill=(255, 255, 255, 255))
+        draw.text((pos_x, pos_y - bbox[1]), ligne, font=font, fill=fill)
         pos_y += hauteur_ligne
 
 
@@ -175,7 +179,19 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
     if img is None:
         raise HTTPException(400, "Le modèle n'a pas encore d'image de base.")
 
-    if img.size != overlay.size:
+    if zone_image and fond_path and not uploaded_bytes:
+        zone_size = (int(zone_image["largeur"]), int(zone_image["hauteur"]))
+        fond_zone = ImageOps.fit(
+            img,
+            zone_size,
+            Image.Resampling.LANCZOS,
+        ).convert("RGBA")
+        img = Image.new("RGBA", overlay.size, (255, 255, 255, 255))
+        img.alpha_composite(
+            fond_zone,
+            (int(zone_image["x"]), int(zone_image["y"])),
+        )
+    elif img.size != overlay.size:
         img = ImageOps.fit(
             img,
             overlay.size,
@@ -222,7 +238,7 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
             int(fonte.get("weight", zone.get("weight", 400))),
             fonte.get("style", zone.get("style", "normal"))
         )
-        draw_centered_in_zone(draw, text, zone, font)
+        draw_centered_in_zone(draw, text, zone, font, fonte.get("color", zone.get("color", "#FFFFFF")))
 
     if preview:
         buf = io.BytesIO()

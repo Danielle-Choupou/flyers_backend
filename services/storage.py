@@ -39,6 +39,75 @@ def download_template_file(chemin):
     return supabase.storage.from_(BUCKET).download(chemin)
 
 
+def save_company_profile(code, profile):
+    data = profile or {}
+    supabase.table("companies").upsert(
+        {
+            "code": code,
+            "nom_officiel": data.get("nom_officiel", code),
+            "profile_data": data,
+        },
+        on_conflict="code",
+    ).execute()
+
+
+def delete_company(code):
+    company = (
+        supabase.table("companies")
+        .select("id")
+        .eq("code", code)
+        .limit(1)
+        .execute()
+        .data
+    )
+    if not company:
+        raise ValueError(f"Entreprise introuvable : {code}")
+
+    company_id = company[0]["id"]
+    templates = (
+        supabase.table("templates")
+        .select("name")
+        .eq("company_id", company_id)
+        .execute()
+        .data
+        or []
+    )
+    files = [
+        template_storage_path(code, template["name"], fichier)
+        for template in templates
+        for fichier in ("base_reference", "calque_fixe", "fond_defaut")
+    ]
+    if files:
+        supabase.storage.from_(BUCKET).remove(files)
+
+    supabase.table("templates").delete().eq("company_id", company_id).execute()
+    supabase.table("companies").delete().eq("id", company_id).execute()
+
+
+def create_template_record(entreprise, modele, config):
+    company = (
+        supabase.table("companies")
+        .select("id")
+        .eq("code", entreprise)
+        .limit(1)
+        .execute()
+        .data
+    )
+    if not company:
+        raise ValueError(f"Entreprise introuvable : {entreprise}")
+
+    config_data = dict(config)
+    objective = config_data.pop("objectif_publication", None)
+    supabase.table("templates").insert(
+        {
+            "company_id": company[0]["id"],
+            "name": modele,
+            "objective": objective,
+            "config": config_data,
+        }
+    ).execute()
+
+
 def save_template_config(entreprise, modele, config):
     company = (
         supabase.table("companies")
@@ -151,65 +220,4 @@ def load_configs():
     return profiles, configs
 
 
-def save_configs(profiles, templates):
-    companies = supabase.table("companies").select(
-        "id,code"
-    ).execute().data
 
-    company_ids = {
-        company["code"]: company["id"]
-        for company in companies
-    }
-
-    for code, profile in profiles.items():
-        data = profile or {}
-
-        nom_officiel = data.get("nom_officiel", code)
-
-        if code in company_ids:
-            supabase.table("companies").update({
-                "nom_officiel": nom_officiel,
-                "profile_data": data
-            }).eq("id", company_ids[code]).execute()
-        else:
-            result = supabase.table("companies").insert({
-                "code": code,
-                "nom_officiel": nom_officiel,
-                "profile_data": data
-            }).execute()
-
-            if result.data:
-                company_ids[code] = result.data[0]["id"]
-
-    for code, modeles in templates.items():
-        if code not in company_ids:
-            continue
-
-        company_id = company_ids[code]
-
-        for nom, config in modeles.items():
-            config = dict(config or {})
-            objective = config.pop("objectif_publication", None)
-
-            existing = (
-                supabase.table("templates")
-                .select("id")
-                .eq("company_id", company_id)
-                .eq("name", nom)
-                .execute()
-                .data
-            )
-
-            data = {
-                "company_id": company_id,
-                "name": nom,
-                "objective": objective,
-                "config": config
-            }
-
-            if existing:
-                supabase.table("templates").update(
-                    data
-                ).eq("id", existing[0]["id"]).execute()
-            else:
-                supabase.table("templates").insert(data).execute()
