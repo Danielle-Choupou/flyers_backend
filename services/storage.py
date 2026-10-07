@@ -208,7 +208,7 @@ def load_configs():
             continue
 
         config = dict(template.get("config") or {})
-        for fichier in ("base_reference", "calque_fixe", "fond_defaut"):
+        for fichier in ("base_reference", "calque_fixe"):
             if config.get(fichier):
                 config[fichier] = template_storage_path(code, template["name"], fichier)
 

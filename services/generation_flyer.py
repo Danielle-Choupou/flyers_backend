@@ -129,7 +129,34 @@ def draw_centered_in_zone(draw, text, zone, font, color="#FFFFFF"):
         pos_y += hauteur_ligne
 
 
-def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", modele="", preview=False, fontes=None):
+def appliquer_filtre_couleur(image, couleur, opacite, zone=None):
+    opacite = max(0, min(100, int(opacite)))
+    if opacite == 0:
+        return image
+
+    try:
+        rgb = ImageColor.getrgb(couleur)[:3]
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(400, "Couleur de filtre invalide.") from exc
+
+    alpha = round(255 * opacite / 100)
+    calque = Image.new("RGBA", image.size, (*rgb, alpha))
+
+    if zone:
+        masque = Image.new("L", image.size, 0)
+        x0 = max(0, int(zone.get("x", 0)))
+        y0 = max(0, int(zone.get("y", 0)))
+        x1 = min(image.width, x0 + max(0, int(zone.get("largeur", 0))))
+        y1 = min(image.height, y0 + max(0, int(zone.get("hauteur", 0))))
+        if x1 <= x0 or y1 <= y0:
+            return image
+        ImageDraw.Draw(masque).rectangle((x0, y0, x1 - 1, y1 - 1), fill=alpha)
+        calque.putalpha(masque)
+
+    return Image.alpha_composite(image.convert("RGBA"), calque)
+
+
+def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", modele="", preview=False, fontes=None, couleur_filtre="#3F257C", opacite_filtre=0):
     overlay = load_image(config.get("calque_fixe"))
 
     if overlay is None:
@@ -141,85 +168,23 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
         None
     )
 
-    fond_path = config.get("fond_defaut")
+    if not uploaded_bytes:
+        raise HTTPException(400, "Choisissez une image de fond avant la generation.")
 
-    if fond_path:
-        try:
-            img = load_image(fond_path)
-        except HTTPException:
-            img = None
+    try:
+        uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
+    except Exception as exc:
+        raise HTTPException(400, "Image invalide.") from exc
+
+    if zone_image:
+        img = Image.new("RGBA", overlay.size, (255, 255, 255, 255))
+        box = (int(zone_image["largeur"]), int(zone_image["hauteur"]))
+        uploaded = ImageOps.fit(uploaded, box, Image.Resampling.LANCZOS)
+        img.alpha_composite(uploaded, (int(zone_image["x"]), int(zone_image["y"])))
     else:
-        img = None
+        img = ImageOps.fit(uploaded, overlay.size, Image.Resampling.LANCZOS).convert("RGBA")
 
-    if img is None and uploaded_bytes:
-        try:
-            uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-        except Exception as e:
-            raise HTTPException(400, "Image invalide.") from e
-
-        img = Image.new("RGBA", overlay.size, (255, 255, 255, 255))
-
-        if zone_image:
-            box = (
-                int(zone_image["largeur"]),
-                int(zone_image["hauteur"])
-            )
-            uploaded = ImageOps.fit(uploaded, box, Image.Resampling.LANCZOS)
-            img.alpha_composite(
-                uploaded,
-                (int(zone_image["x"]), int(zone_image["y"]))
-            )
-        else:
-            img = ImageOps.fit(
-                uploaded,
-                overlay.size,
-                Image.Resampling.LANCZOS
-            ).convert("RGBA")
-
-    if img is None:
-        raise HTTPException(400, "Le modèle n'a pas encore d'image de base.")
-
-    if zone_image and fond_path and not uploaded_bytes:
-        zone_size = (int(zone_image["largeur"]), int(zone_image["hauteur"]))
-        fond_zone = ImageOps.fit(
-            img,
-            zone_size,
-            Image.Resampling.LANCZOS,
-        ).convert("RGBA")
-        img = Image.new("RGBA", overlay.size, (255, 255, 255, 255))
-        img.alpha_composite(
-            fond_zone,
-            (int(zone_image["x"]), int(zone_image["y"])),
-        )
-    elif img.size != overlay.size:
-        img = ImageOps.fit(
-            img,
-            overlay.size,
-            Image.Resampling.LANCZOS
-        ).convert("RGBA")
-
-    if uploaded_bytes and fond_path and zone_image:
-        try:
-            uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-        except Exception as e:
-            raise HTTPException(400, "Image invalide.") from e
-
-        box = (
-            int(zone_image["largeur"]),
-            int(zone_image["hauteur"])
-        )
-
-        uploaded = ImageOps.fit(
-            uploaded,
-            box,
-            Image.Resampling.LANCZOS
-        )
-
-        img.alpha_composite(
-            uploaded,
-            (int(zone_image["x"]), int(zone_image["y"]))
-        )
-
+    img = appliquer_filtre_couleur(img, couleur_filtre, opacite_filtre, zone_image)
     img = Image.alpha_composite(img, overlay)
     draw = ImageDraw.Draw(img)
 
@@ -251,7 +216,7 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
     return save_and_response(img, entreprise, modele)
 
 
-def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=""):
+def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele="", couleur_filtre="#3F257C", opacite_filtre=0):
     overlay_raw = config.get("overlay")
     overlays = config.get("overlays") or ([overlay_raw] if overlay_raw else [])
 
@@ -261,10 +226,12 @@ def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=
     overlay = load_image(overlays[0])
     target = overlay.size
 
-    if uploaded_bytes:
+    if not uploaded_bytes:
+        raise HTTPException(400, "Choisissez une image de fond avant la generation.")
+    try:
         background = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-    else:
-        background = load_image(config.get("fond_defaut"))
+    except Exception as exc:
+        raise HTTPException(400, "Image invalide.") from exc
 
     offset = int(config.get("fond_y_offset", 0))
     canvas = Image.new("RGBA", target, (255, 255, 255, 255))
@@ -277,6 +244,10 @@ def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=
     ).convert("RGBA")
 
     canvas.alpha_composite(bg, (0, offset))
+    canvas = appliquer_filtre_couleur(
+        canvas, couleur_filtre, opacite_filtre,
+        {"x": 0, "y": offset, "largeur": target[0], "hauteur": h},
+    )
 
     for raw in overlays:
         p = resolve_path(raw)
@@ -326,7 +297,7 @@ def save_and_response(img, entreprise, modele):
     )
 
 
-def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None, preview=False, fontes=None):
+def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None, preview=False, fontes=None, couleur_filtre="#3F257C", opacite_filtre=0):
     if translate:
         zones = config.get("zones_modifiables", {})
 
@@ -350,7 +321,9 @@ def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None
             entreprise,
             modele,
             preview,
-            fontes
+            fontes,
+            couleur_filtre,
+            opacite_filtre,
         )
 
     return generate_legacy(
@@ -358,7 +331,9 @@ def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None
         valeurs,
         uploaded_bytes,
         entreprise,
-        modele
+        modele,
+        couleur_filtre,
+        opacite_filtre,
     )
 
 

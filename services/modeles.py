@@ -50,7 +50,7 @@ def ajouter_modele(data, templates, profiles):
         raise HTTPException(404, "Entreprise introuvable.")
     if modele in templates[entreprise]:
         raise HTTPException(400, "Ce modèle existe déjà.")
-    required = ("base_reference", "calque_fixe", "fond_defaut", "zones_modifiables")
+    required = ("base_reference", "calque_fixe", "zones_modifiables")
     if any(k not in config for k in required):
         raise HTTPException(400, "Configuration du modèle incomplète.")
     config = dict(config)
@@ -59,14 +59,10 @@ def ajouter_modele(data, templates, profiles):
     templates[entreprise][modele] = config
     return {"status": "ok", "message": f"Modèle {modele} enregistré.", "modele": modele, "objectif_publication": objectif, "config": config}
 
-def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes, fond_bytes):
+def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes):
     return {
-        key: upload_template_file(entreprise, modele, key, content)
-        for key, content in (
-            ("base_reference", base_bytes),
-            ("calque_fixe", overlay_bytes),
-            ("fond_defaut", fond_bytes),
-        )
+        "base_reference": upload_template_file(entreprise, modele, "base_reference", base_bytes),
+        "calque_fixe": upload_template_file(entreprise, modele, "calque_fixe", overlay_bytes),
     }
 
 def obtenir_fichier_modele(entreprise, modele, fichier, templates):

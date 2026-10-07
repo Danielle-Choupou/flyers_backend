@@ -316,7 +316,7 @@ def get_catalogue_modeles(entreprise: str):
     return {'modeles': modeles, 'objectifs': objectifs}
 
 @app.post('/modeles/complet')
-async def post_modele_complet(entreprise:str=Form(...),modele:str=Form(...),objectif_publication:str=Form(...),zones_modifiables:str=Form('{}'),base_reference:UploadFile=File(...),calque_fixe:UploadFile=File(...),fond_defaut:UploadFile=File(...)):
+async def post_modele_complet(entreprise:str=Form(...),modele:str=Form(...),objectif_publication:str=Form(...),zones_modifiables:str=Form('{}'),base_reference:UploadFile=File(...),calque_fixe:UploadFile=File(...)):
     ent=entreprise.strip().upper(); nom=modele.strip(); obj=objectif_publication.strip()
     if ent not in TEMPLATES_CONFIG: raise HTTPException(404,'Entreprise introuvable.')
     if not nom: raise HTTPException(400,'Nom du modèle obligatoire.')
@@ -329,7 +329,7 @@ async def post_modele_complet(entreprise:str=Form(...),modele:str=Form(...),obje
     if not isinstance(zones, dict):
         raise HTTPException(400, 'Les zones doivent être un objet JSON.')
 
-    paths=save_uploaded_template_files(ent,nom,await base_reference.read(),await calque_fixe.read(),await fond_defaut.read())
+    paths=save_uploaded_template_files(ent,nom,await base_reference.read(),await calque_fixe.read())
     cfg={**paths,'zones_modifiables':zones,'objectif_publication':obj}
     try:
         create_template_record(ent, nom, cfg)
@@ -354,7 +354,7 @@ def put_modele(entreprise:str,modele:str,data:dict):
     _save_config_snapshot()
     return {'status':'ok','config':cfg}
 @app.put('/modeles/{entreprise}/{modele}/fichiers')
-async def put_modele_fichiers(entreprise:str,modele:str,objectif_publication:Optional[str]=Form(None),zones_modifiables:str=Form('{}'),base_reference:Optional[UploadFile]=File(None),calque_fixe:Optional[UploadFile]=File(None),fond_defaut:Optional[UploadFile]=File(None)):
+async def put_modele_fichiers(entreprise:str,modele:str,objectif_publication:Optional[str]=Form(None),zones_modifiables:str=Form('{}'),base_reference:Optional[UploadFile]=File(None),calque_fixe:Optional[UploadFile]=File(None)):
     ent=entreprise.strip().upper(); nom=modele.strip()
     if ent not in TEMPLATES_CONFIG or nom not in TEMPLATES_CONFIG[ent]: raise HTTPException(404,'Modèle introuvable.')
     try:
@@ -370,7 +370,6 @@ async def put_modele_fichiers(entreprise:str,modele:str,objectif_publication:Opt
     for fichier,cle in [
         (base_reference,'base_reference'),
         (calque_fixe,'calque_fixe'),
-        (fond_defaut,'fond_defaut')
     ]:
         if fichier and fichier.filename:
             cfg[cle]=upload_template_file(ent, nom, cle, await fichier.read())
@@ -386,7 +385,7 @@ async def put_modele_fichiers(entreprise:str,modele:str,objectif_publication:Opt
 def get_modele(entreprise:str,modele:str): return obtenir_modele(entreprise,modele,TEMPLATES_CONFIG)
 @app.get('/modeles/{entreprise}/{modele}/fichier/{fichier}')
 def get_modele_fichier(entreprise:str,modele:str,fichier:str):
-    if fichier not in ['base_reference','calque_fixe','fond_defaut']:
+    if fichier not in ['base_reference','calque_fixe']:
         raise HTTPException(400,'Fichier invalide.')
 
     chemin=obtenir_fichier_modele(entreprise,modele,fichier,TEMPLATES_CONFIG)
@@ -508,6 +507,8 @@ async def preview_flyer(
     langue: str = Form('Français'),
     valeurs: str = Form('{}'),
     fontes: str = Form('{}'),
+    couleur_filtre: str = Form("#3F257C"),
+    opacite_filtre: int = Form(0, ge=0, le=100),
     image_fond: Optional[UploadFile] = File(None)
 ):
     ent = entreprise.strip().upper()
@@ -523,12 +524,10 @@ async def preview_flyer(
     except Exception:
         raise HTTPException(400, 'Format des valeurs incorrect.')
 
-    raw = (
-            await image_fond.read()
-            if image_fond and image_fond.filename
-            else None
-        )
-    
+    raw = await image_fond.read() if image_fond and image_fond.filename else None
+    if not raw:
+        raise HTTPException(400, 'Choisissez ou importez une image avant la previsualisation.')
+
     try:
         fonts = json.loads(fontes)
     except Exception:
@@ -548,11 +547,13 @@ async def preview_flyer(
         modele,
         None if langue == 'Français' else langue,
         preview=True,
-        fontes=fonts
+        fontes=fonts,
+        couleur_filtre=couleur_filtre,
+        opacite_filtre=opacite_filtre
     )
 
 @app.post('/generate')
-async def generate_flyer(entreprise:str=Form(...),modele:str=Form(...),langue:str=Form('Français'),valeurs:str=Form('{}'),fontes: str = Form('{}'), image_fond:Optional[UploadFile]=File(None)):
+async def generate_flyer(entreprise:str=Form(...),modele:str=Form(...),langue:str=Form('Français'),valeurs:str=Form('{}'),fontes: str = Form('{}'), couleur_filtre:str=Form("#3F257C"), opacite_filtre:int=Form(0, ge=0, le=100), image_fond:Optional[UploadFile]=File(None)):
     ent=entreprise.strip().upper()
     if ent not in TEMPLATES_CONFIG: raise HTTPException(400,'Entreprise inconnue.')
     if modele not in TEMPLATES_CONFIG[ent]: raise HTTPException(400,'Modèle inconnu.')
@@ -567,5 +568,6 @@ async def generate_flyer(entreprise:str=Form(...),modele:str=Form(...),langue:st
     if not isinstance(fonts, dict):
         raise HTTPException(400, 'Les polices doivent être un objet JSON.')
     raw=await image_fond.read() if image_fond and image_fond.filename else None
-    return generate(TEMPLATES_CONFIG[ent][modele],values,raw,ent,modele, None if langue=='Français' else langue,fontes=fonts)
+    if not raw: raise HTTPException(400,'Choisissez ou importez une image avant la generation.')
+    return generate(TEMPLATES_CONFIG[ent][modele],values,raw,ent,modele, None if langue=='Français' else langue,fontes=fonts,couleur_filtre=couleur_filtre,opacite_filtre=opacite_filtre)
 
