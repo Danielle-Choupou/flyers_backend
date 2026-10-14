@@ -1,6 +1,8 @@
 import asyncio
 import json
+import hmac
 import logging
+import os
 import time
 import uuid
 import threading
@@ -146,6 +148,22 @@ async def measure_request_duration(request, call_next):
     started_at = time.perf_counter()
 
     path = request.url.path
+    if request.method != "OPTIONS" and path not in {"/health", "/ready"}:
+        expected_token = os.getenv("API_TOKEN", "").strip()
+        supplied_token = request.headers.get("X-API-Key", "")
+        if not expected_token:
+            return JSONResponse(
+                status_code=503,
+                content={"detail": "Protection API non configurée : définis API_TOKEN dans l'environnement du backend."},
+                headers={"X-Request-ID": request_id},
+            )
+        if not supplied_token or not hmac.compare_digest(supplied_token, expected_token):
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Clé API absente ou invalide."},
+                headers={"X-Request-ID": request_id},
+            )
+
     if path not in {"/health", "/ready", "/reload-config"}:
         source = await asyncio.to_thread(refresh_config)
         if _route_uses_config(path) and source == "unavailable":

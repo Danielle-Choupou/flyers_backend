@@ -1,16 +1,36 @@
 import unittest
+import os
 from unittest.mock import patch
 
 import server
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
+API_HEADERS = {"X-API-Key": "test-secret"}
+
 
 class ConfigResilienceTests(unittest.TestCase):
     def setUp(self):
+        self._api_token_patch = patch.dict(os.environ, {"API_TOKEN": "test-secret"})
+        self._api_token_patch.start()
         server._apply_config_snapshot({}, {}, "unavailable")
         server.LAST_CONFIG_ERROR = None
         server._last_config_attempt = 0.0
+
+    def tearDown(self):
+        self._api_token_patch.stop()
+
+    def test_api_requires_shared_key_but_health_remains_public(self):
+        with TestClient(server.app) as client:
+            health = client.get("/health")
+            missing_key = client.get("/fonts")
+            invalid_key = client.get("/fonts", headers={"X-API-Key": "wrong"})
+            valid_key = client.get("/fonts", headers={"X-API-Key": "test-secret"})
+
+        self.assertEqual(health.status_code, 200)
+        self.assertEqual(missing_key.status_code, 401)
+        self.assertEqual(invalid_key.status_code, 401)
+        self.assertEqual(valid_key.status_code, 200)
 
     def test_supabase_success_refreshes_runtime_and_redis_snapshot(self):
         profiles = {"ACME": {"nom_officiel": "Acme"}}
@@ -82,8 +102,8 @@ class ConfigResilienceTests(unittest.TestCase):
             with TestClient(server.app) as client:
                 health = client.get("/health")
                 ready = client.get("/ready")
-                companies = client.get("/entreprises")
-                create = client.post("/entreprises", json={"nom": "NEW"})
+                companies = client.get("/entreprises", headers=API_HEADERS)
+                create = client.post("/entreprises", json={"nom": "NEW"}, headers=API_HEADERS)
 
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.json()["config_source"], "redis_stale")
@@ -103,7 +123,7 @@ class ConfigResilienceTests(unittest.TestCase):
             with TestClient(server.app) as client:
                 health = client.get("/health")
                 ready = client.get("/ready")
-                companies = client.get("/entreprises")
+                companies = client.get("/entreprises", headers=API_HEADERS)
 
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.json()["config_source"], "unavailable")
@@ -131,10 +151,10 @@ class ConfigResilienceTests(unittest.TestCase):
             patch.object(server.time, "sleep"),
         ):
             with TestClient(server.app) as client:
-                stale = client.get("/entreprises")
+                stale = client.get("/entreprises", headers=API_HEADERS)
                 live = True
                 server._last_config_attempt = 0.0
-                recovered = client.get("/entreprises")
+                recovered = client.get("/entreprises", headers=API_HEADERS)
                 ready = client.get("/ready")
 
         self.assertEqual(stale.json(), {"ACME": ["Ancien"]})
