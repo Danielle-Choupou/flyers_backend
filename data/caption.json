@@ -1,0 +1,689 @@
+{
+  "CAMCI": {
+    "nom_officiel": "CAMCI",
+    "secteur_activite": "Importation, distribution et accompagnement technique dans le domaine des équipements professionnels et industriels (forêt, construction, transport)",
+    "historique": "Présente au Cameroun depuis 1984, fait partie du groupe SOGAFRIC[cite: 4].",
+    "ton_communication": "professionnel, expert, fiable, accessible, humain, rassurant, orienté solution",
+    "niveau_formalite": "élevé",
+    "public_cible": [
+      "Entreprises",
+      "Industriels",
+      "Professionnels du BTP",
+      "Agriculteurs",
+      "Professionnels de la forêt",
+      "Transporteurs",
+      "Entreprises de maintenance",
+      "Professionnels utilisant des équipements techniques",
+      "Particuliers lorsque le produit ou service le permet"
+    ],
+    "objectifs_communication": [
+      "Positionner CAMCI comme un partenaire technique fiable garantissant la continuité des activités",
+      "Mettre en avant l'expertise, la proximité, la disponibilité et le service après-vente"
+    ],
+    "valeurs": [
+      "Éthique et intégrité",
+      "Satisfaction client",
+      "Qualité et excellence",
+      "Proximité",
+      "Expertise",
+      "Fiabilité",
+      "Accompagnement",
+      "Disponibilité"
+    ],
+    "vocabulaire_favorise": [
+      "équipement professionnel",
+      "solution",
+      "expertise technique",
+      "performance",
+      "fiabilité",
+      "disponibilité",
+      "maintenance",
+      "pièces détachées",
+      "accompagnement",
+      "service après-vente",
+      "professionnels",
+      "productivité",
+      "continuité des activités",
+      "sécurité",
+      "qualité",
+      "proximité",
+      "savoir-faire",
+      "solution adaptée"
+    ],
+    "termes_a_eviter": [
+      "meilleur du marché",
+      "numéro 1",
+      "imbattable",
+      "révolutionnaire",
+      "zéro panne",
+      "zéro risque",
+      "solution miracle",
+      "performance garantie à 100 %",
+      "le meilleur équipement",
+      "toujours disponible"
+    ],
+    "regles_strictes": {
+      "emojis": true,
+      "hashtags": true,
+      "informations_inventees": false,
+      "mention_manquante": "[INFORMATION À CONFIRMER]"
+    },
+    "regles_reseaux": {
+      "LinkedIn": {
+        "ton": "expert, professionnel, business et institutionnel mais humain",
+        "max_caracteres": 3000,
+        "zone_coupure": "210 - 250 car.",
+        "longueur_ideale": "1000 - 1800 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Hook -> Problème -> Explication -> Solution -> Bénéfice -> CTA"
+      },
+      "Facebook": {
+        "ton": "plus accessible et proche",
+        "max_caracteres": 63206,
+        "zone_coupure": "250 - 480 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": true,
+        "structure": "Focus produits, points de vente, actualités et démonstrations"
+      },
+      "Instagram": {
+        "ton": "moderne, visuel et dynamique",
+        "max_caracteres": 2200,
+        "zone_coupure": "125 car.",
+        "longueur_ideale": "150 - 500 car.",
+        "hashtags": true,
+        "max_hashtags": 10,
+        "emojis": true,
+        "structure": "Reels, équipements en situation, showroom, coulisses"
+      },
+      "TikTok": {
+        "ton": "direct, naturel et pédagogique",
+        "max_caracteres": 4000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "150 - 400 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Hook percutant, format court, questions pratiques"
+      },
+      "YouTube": {
+        "ton": "descriptif, informatif, technique",
+        "max_caracteres": 5000,
+        "zone_coupure": "150 car.",
+        "longueur_ideale": "300 - 1000 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": false,
+        "structure": "Résumé clair de l'équipement + démonstration / liens"
+      },
+      "Google Business Profile": {
+        "ton": "local, commercial, direct",
+        "max_caracteres": 1500,
+        "zone_coupure": "70 - 100 car.",
+        "longueur_ideale": "150 - 300 car.",
+        "hashtags": false,
+        "max_hashtags": 0,
+        "emojis": false,
+        "structure": "Actualité ou offre claire + appel en point de vente"
+      }
+    }
+  },
+  "TMC": {
+    "nom_officiel": "TMC — Transmissions Manutentions Cameroun",
+    "secteur_activite": "Solutions industrielles (transmission de puissance, manutention, roulements, courroies, chaînes, bandes transporteuses, flexibles, pneumatique, hydraulique)",
+    "chiffres_cles": "Plus de 40 ans d'expérience, plus de 40 000 références et plus de 30 partenaires (à utiliser uniquement lorsque pertinent)[cite: 4].",
+    "ton_communication": "technique mais compréhensible, professionnel, expert, pédagogique, précis, orienté solution",
+    "niveau_formalite": "élevé",
+    "public_cible": [
+      "Industriels",
+      "Entreprises de production",
+      "Cimenteries",
+      "Agro-industries",
+      "Industries pharmaceutiques",
+      "Pétrochimie",
+      "Entreprises de maintenance",
+      "BTP",
+      "Professionnels de la manutention",
+      "Techniciens et responsables maintenance",
+      "Responsables achats",
+      "Responsables industriels"
+    ],
+    "objectifs_communication": [
+      "Positionner TMC comme un partenaire technique des industriels face aux enjeux de transmission et maintenance",
+      "Expliquer les termes techniques de manière pédagogique"
+    ],
+    "valeurs": [
+      "Expertise technique",
+      "Qualité",
+      "Fiabilité",
+      "Innovation",
+      "Sécurité",
+      "Accompagnement",
+      "Solutions adaptées",
+      "Service"
+    ],
+    "vocabulaire_favorise": [
+      "transmission",
+      "manutention",
+      "maintenance",
+      "performance",
+      "productivité",
+      "fiabilité",
+      "sécurité",
+      "roulements",
+      "chaînes",
+      "courroies",
+      "convoyage",
+      "bandes transporteuses",
+      "flexibles",
+      "pneumatique",
+      "hydraulique",
+      "étanchéité",
+      "diagnostic",
+      "installation",
+      "mise en service",
+      "formation",
+      "SAV",
+      "disponibilité",
+      "solution technique",
+      "optimisation"
+    ],
+    "termes_a_eviter": [
+      "meilleur",
+      "numéro 1",
+      "imbattable",
+      "zéro panne",
+      "zéro maintenance",
+      "solution miracle",
+      "performance garantie",
+      "révolutionnaire"
+    ],
+    "regles_strictes": {
+      "emojis": true,
+      "hashtags": true,
+      "informations_inventees": false,
+      "mention_manquante": "[INFORMATION À CONFIRMER]"
+    },
+    "regles_reseaux": {
+      "LinkedIn": {
+        "ton": "technique, expert, axé sur les décideurs et la maintenance",
+        "max_caracteres": 3000,
+        "zone_coupure": "210 - 250 car.",
+        "longueur_ideale": "1000 - 1800 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": false,
+        "structure": "Problème -> Explication -> Solution technique -> Bénéfice -> CTA"
+      },
+      "Facebook": {
+        "ton": "accessible et pédagogique",
+        "max_caracteres": 63206,
+        "zone_coupure": "250 - 480 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": true,
+        "structure": "Simplification des sujets techniques, conseils et applications"
+      },
+      "Instagram": {
+        "ton": "visuel et technique",
+        "max_caracteres": 2200,
+        "zone_coupure": "125 car.",
+        "longueur_ideale": "150 - 500 car.",
+        "hashtags": true,
+        "max_hashtags": 10,
+        "emojis": true,
+        "structure": "Démonstrations, gros plans produits, réels techniques"
+      },
+      "TikTok": {
+        "ton": "pédagogique court et direct",
+        "max_caracteres": 4000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "150 - 400 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Explication de composants de façon simple"
+      },
+      "YouTube": {
+        "ton": "informatif et détaillé",
+        "max_caracteres": 5000,
+        "zone_coupure": "150 car.",
+        "longueur_ideale": "300 - 1000 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": false,
+        "structure": "Tutoriels et présentations d'installations"
+      },
+      "Google Business Profile": {
+        "ton": "commercial et local",
+        "max_caracteres": 1500,
+        "zone_coupure": "70 - 100 car.",
+        "longueur_ideale": "150 - 300 car.",
+        "hashtags": false,
+        "max_hashtags": 0,
+        "emojis": false,
+        "structure": "Disponibilité stock et services d'installation"
+      }
+    }
+  },
+  "ITAC PARTS": {
+    "nom_officiel": "ITAC PARTS",
+    "secteur_activite": "Négoce international, distribution de matériels et pièces détachées en Afrique depuis plus de 20 ans (industriel, forestier, agricole, énergétique, distribution pétrolière)",
+    "role_principal": "Centrale d'achat, sourcing international, logistique et accompagnement des professionnels en Afrique francophone[cite: 4].",
+    "ton_communication": "professionnel, international, B2B, expert, direct, rassurant, orienté solution",
+    "niveau_formalite": "élevé",
+    "public_cible": [
+      "Industriels",
+      "Entreprises",
+      "Responsables achats",
+      "Responsables maintenance",
+      "Entreprises BTP",
+      "Mines",
+      "Agriculture",
+      "Forêt",
+      "Énergie",
+      "Automobile",
+      "Distribution pétrolière"
+    ],
+    "objectifs_communication": [
+      "Positionner ITAC PARTS comme un partenaire de sourcing, d'approvisionnement et de logistique en Afrique",
+      "Mettre en valeur la maîtrise de la supply chain et l'accès aux pièces d'origine"
+    ],
+    "valeurs": [
+      "Fiabilité",
+      "Disponibilité",
+      "Réactivité",
+      "Expertise",
+      "Proximité",
+      "Accompagnement",
+      "Qualité",
+      "Sourcing",
+      "Maîtrise logistique"
+    ],
+    "vocabulaire_favorise": [
+      "sourcing",
+      "approvisionnement",
+      "pièces détachées",
+      "équipements",
+      "outillage",
+      "pièces d'origine",
+      "disponibilité",
+      "réactivité",
+      "logistique",
+      "supply chain",
+      "centrale d'achat",
+      "import-export",
+      "expertise technique",
+      "maintenance",
+      "Afrique",
+      "professionnels",
+      "industriels",
+      "conformité",
+      "référence",
+      "stock",
+      "solution logistique"
+    ],
+    "termes_a_eviter": [
+      "toutes les pièces",
+      "toujours en stock",
+      "livraison immédiate",
+      "meilleur prix",
+      "fournisseur numéro 1",
+      "livraison garantie",
+      "zéro délai",
+      "disponible partout immédiatement"
+    ],
+    "regles_strictes": {
+      "emojis": true,
+      "hashtags": true,
+      "informations_inventees": false,
+      "mention_manquante": "[INFORMATION À CONFIRMER]"
+    },
+    "regles_reseaux": {
+      "LinkedIn": {
+        "ton": "corporate, B2B, axé supply chain et sourcing international",
+        "max_caracteres": 3000,
+        "zone_coupure": "210 - 250 car.",
+        "longueur_ideale": "1000 - 1800 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": false,
+        "structure": "Problème d'approvisionnement -> Rôle du sourcing -> Solution ITAC -> CTA"
+      },
+      "Facebook": {
+        "ton": "accessible et professionnel",
+        "max_caracteres": 63206,
+        "zone_coupure": "250 - 480 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": true,
+        "structure": "Présentation des pièces, marques et actualités"
+      },
+      "Instagram": {
+        "ton": "visuel et logistique",
+        "max_caracteres": 2200,
+        "zone_coupure": "125 car.",
+        "longueur_ideale": "150 - 500 car.",
+        "hashtags": true,
+        "max_hashtags": 10,
+        "emojis": true,
+        "structure": "Entrepôts, équipes, process de sourcing et carrousels"
+      },
+      "TikTok": {
+        "ton": "dynamique et éducatif",
+        "max_caracteres": 4000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "150 - 400 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Pédagogie sur la recherche de pièces et la logistique internationale"
+      },
+      "YouTube": {
+        "ton": "informatif",
+        "max_caracteres": 5000,
+        "zone_coupure": "150 car.",
+        "longueur_ideale": "300 - 1000 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": false,
+        "structure": "Présentation des services d'import-export et logistique"
+      },
+      "Google Business Profile": {
+        "ton": "commercial",
+        "max_caracteres": 1500,
+        "zone_coupure": "70 - 100 car.",
+        "longueur_ideale": "150 - 300 car.",
+        "hashtags": false,
+        "max_hashtags": 0,
+        "emojis": false,
+        "structure": "Solutions d'approvisionnement et contact direct"
+      }
+    }
+  },
+  "FIAG": {
+    "nom_officiel": "FIAG SA",
+    "secteur_activite": "Importation et distribution multisectorielle (forêt, industriel, automobile, agricole, BTP, énergie). Créée en 2003, service de maintenance créé en 2013, points de vente à Bata et Malabo, plus de 4 000 références. Intégrée au groupe SOGAFRIC depuis 2025[cite: 4].",
+    "ton_communication": "professionnel, expert, accessible, polyvalent, rassurant, orienté solution",
+    "niveau_formalite": "élevé",
+    "public_cible": [
+      "Professionnels",
+      "Entreprises",
+      "Industriels",
+      "Agriculteurs",
+      "Professionnels du BTP",
+      "Entreprises forestières",
+      "Garages",
+      "Responsables maintenance",
+      "Professionnels utilisant des équipements techniques",
+      "Professionnels de l'énergie"
+    ],
+    "objectifs_communication": [
+      "Positionner FIAG SA comme un partenaire multisectoriel global (produits + maintenance + SAV)",
+      "Mettre en valeur la diversité des secteurs et la présence locale à Bata et Malabo"
+    ],
+    "valeurs": [
+      "Expertise",
+      "Qualité",
+      "Proximité",
+      "Disponibilité",
+      "Accompagnement",
+      "Service",
+      "Fiabilité",
+      "Solutions adaptées"
+    ],
+    "vocabulaire_favorise": [
+      "équipements",
+      "solutions",
+      "expertise",
+      "maintenance",
+      "service après-vente",
+      "pièces détachées",
+      "professionnels",
+      "industrie",
+      "agriculture",
+      "construction",
+      "automobile",
+      "forêt",
+      "performance",
+      "fiabilité",
+      "accompagnement",
+      "disponibilité",
+      "matériel professionnel",
+      "solutions adaptées",
+      "savoir-faire"
+    ],
+    "termes_a_eviter": [
+      "meilleur",
+      "numéro 1",
+      "imbattable",
+      "parfait",
+      "zéro panne",
+      "zéro risque",
+      "solution miracle",
+      "leader incontesté",
+      "garantie absolue"
+    ],
+    "regles_strictes": {
+      "emojis": true,
+      "hashtags": true,
+      "informations_inventees": false,
+      "mention_manquante": "[INFORMATION À CONFIRMER]"
+    },
+    "regles_reseaux": {
+      "LinkedIn": {
+        "ton": "professionnel, corporate, expert, orienté industrie et business",
+        "max_caracteres": 3000,
+        "zone_coupure": "210 - 250 car.",
+        "longueur_ideale": "1000 - 1800 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": false,
+        "structure": "Besoin -> Équipement -> Expertise technique -> Service de maintenance -> CTA"
+      },
+      "Facebook": {
+        "ton": "accessible, informatif, proche",
+        "max_caracteres": 63206,
+        "zone_coupure": "250 - 480 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": true,
+        "structure": "Présentation des showrooms de Bata et Malabo, actualités et produits"
+      },
+      "Instagram": {
+        "ton": "visuel, moderne, dynamique",
+        "max_caracteres": 2200,
+        "zone_coupure": "125 car.",
+        "longueur_ideale": "150 - 500 car.",
+        "hashtags": true,
+        "max_hashtags": 10,
+        "emojis": true,
+        "structure": "Showrooms, équipements en action, équipes et démonstrations"
+      },
+      "TikTok": {
+        "ton": "direct, pédagogique, démonstratif",
+        "max_caracteres": 4000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "150 - 400 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Présentation rapide de matériel technique et conseils d'utilisation"
+      },
+      "YouTube": {
+        "ton": "descriptif",
+        "max_caracteres": 5000,
+        "zone_coupure": "150 car.",
+        "longueur_ideale": "300 - 1000 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": false,
+        "structure": "Vidéos de présentation des secteurs et de la maintenance"
+      },
+      "Google Business Profile": {
+        "ton": "local et commercial",
+        "max_caracteres": 1500,
+        "zone_coupure": "70 - 100 car.",
+        "longueur_ideale": "150 - 300 car.",
+        "hashtags": false,
+        "max_hashtags": 0,
+        "emojis": false,
+        "structure": "Points de vente Bata/Malabo et services techniques"
+      }
+    }
+  },
+  "LF": {
+    "nom_officiel": "LF Company",
+    "secteur_activite": "Transformation digitale et technologique des entreprises, Business Intelligence, intégration ERP (Odoo)",
+    "positionnement": "Partenaire de transformation digitale et technologique des entreprises, mettant la technologie, la donnée et les solutions numériques au service de leur performance[cite: 4].",
+    "ton_communication": "expert, professionnel, moderne, pédagogique, accessible, orienté solutions, tourné vers l'innovation, pragmatique, fiable, orienté performance",
+    "niveau_formalite": "élevé",
+    "public_cible": [
+      "Dirigeants et chefs d'entreprise",
+      "PME et grandes entreprises",
+      "Responsables informatiques et DSI",
+      "Responsables administratifs et financiers",
+      "Responsables RH",
+      "Responsables marketing et communication",
+      "Responsables opérationnels",
+      "Équipes commerciales"
+    ],
+    "objectifs_communication": [
+      "Développer la notoriété",
+      "Démontrer l'expertise",
+      "Éduquer le marché",
+      "Générer des opportunités commerciales",
+      "Valoriser les réalisations"
+    ],
+    "valeurs": [
+      "Expertise",
+      "Innovation",
+      "Transformation",
+      "Performance",
+      "Fiabilité",
+      "Accompagnement",
+      "Personnalisation",
+      "Efficacité",
+      "Sécurité",
+      "Simplicité",
+      "Amélioration continue"
+    ],
+    "vocabulaire_favorise": [
+      "transformation digitale",
+      "digitalisation",
+      "innovation",
+      "technologie",
+      "données",
+      "Data",
+      "Business Intelligence",
+      "automatisation",
+      "performance",
+      "optimisation",
+      "productivité",
+      "processus",
+      "reporting",
+      "tableaux de bord",
+      "ERP",
+      "Power BI",
+      "Odoo",
+      "solutions digitales",
+      "systèmes d'information",
+      "cybersécurité",
+      "applications",
+      "intégration",
+      "outils numériques",
+      "pilotage",
+      "prise de décision",
+      "accompagnement",
+      "conseil",
+      "solutions sur mesure"
+    ],
+    "termes_a_eviter": [
+      "la meilleure solution",
+      "numéro 1",
+      "révolutionnaire",
+      "solution miracle",
+      "100 % sécurisé",
+      "zéro risque",
+      "garantie à 100 %",
+      "transforme totalement votre entreprise",
+      "la technologie du futur",
+      "low-cost",
+      "codage informatique"
+    ],
+    "regles_strictes": {
+      "emojis": true,
+      "hashtags": true,
+      "informations_inventees": false,
+      "mention_manquante": "[INFORMATION À CONFIRMER]"
+    },
+    "regles_reseaux": {
+      "LinkedIn": {
+        "ton": "professionnel, stratégique, expert et pédagogique",
+        "max_caracteres": 3000,
+        "zone_coupure": "210 - 250 car.",
+        "longueur_ideale": "1000 - 1800 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Hook -> Problème métier -> Explication -> Solution digitale -> Bénéfice -> CTA"
+      },
+      "Facebook": {
+        "ton": "professionnel mais plus accessible",
+        "max_caracteres": 63206,
+        "zone_coupure": "250 - 480 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": true,
+        "structure": "Conseils, vulgarisation, actualités et présentations de services"
+      },
+      "Instagram": {
+        "ton": "visuel, moderne, dynamique et épuré",
+        "max_caracteres": 2200,
+        "zone_coupure": "125 car.",
+        "longueur_ideale": "150 - 500 car.",
+        "hashtags": true,
+        "max_hashtags": 10,
+        "emojis": true,
+        "structure": "Reels, carrousels éducatifs, infographies, coulisses"
+      },
+      "TikTok": {
+        "ton": "direct, dynamique, pédagogique et humain",
+        "max_caracteres": 4000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "150 - 400 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Format court 'Saviez-vous que…', astuces digitales et avant/après"
+      },
+      "YouTube": {
+        "ton": "informatif et démonstratif",
+        "max_caracteres": 5000,
+        "zone_coupure": "150 car.",
+        "longueur_ideale": "300 - 1000 car.",
+        "hashtags": true,
+        "max_hashtags": 3,
+        "emojis": false,
+        "structure": "Démos de tableaux de bord, tutoriels ERP et webinaires"
+      },
+      "Google Business Profile": {
+        "ton": "commercial et local",
+        "max_caracteres": 1500,
+        "zone_coupure": "70 - 100 car.",
+        "longueur_ideale": "150 - 300 car.",
+        "hashtags": false,
+        "max_hashtags": 0,
+        "emojis": false,
+        "structure": "Offre de services de conseil et transformation digitale"
+      }
+    }
+  }
+}

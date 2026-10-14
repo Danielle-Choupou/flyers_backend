@@ -1,14 +1,15 @@
-import io, json, os, requests
+import io, json, os
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps
 from fastapi import HTTPException, UploadFile
 from fastapi.responses import Response
-from config import OUTPUT_DIR, BASE_DIR, FONTS_DIR
+from config import OUTPUT_DIR, BASE_DIR
 from supabase import create_client
 from services.IA import traduire_texte
 from dotenv import load_dotenv
+from services.polices import load_font,police_a_taille
 
 load_dotenv()
 
@@ -27,7 +28,7 @@ def resolve_path(raw):
     return p
 
 @lru_cache(maxsize=100)
-def load_image(raw):
+def _load_image_cached(raw):
     if not raw: return None
     path = resolve_path(raw)
     if path and path.exists():
@@ -38,106 +39,80 @@ def load_image(raw):
     except Exception as e:
         raise HTTPException(404, f"Fichier introuvable : {raw}") from e
 
+def load_image(raw):
+    return _load_image_cached(raw).copy() if raw else None
 
-GOOGLE_FONTS_KEY = os.getenv("GOOGLE_FONTS_API_KEY")
-FONT_CACHE = BASE_DIR / "font_cache"
-FONT_CACHE.mkdir(exist_ok=True)
+# ====================================================================== texte
 
-
-@lru_cache(maxsize=1)
-def google_fonts():
-    r = requests.get(
-        "https://www.googleapis.com/webfonts/v1/webfonts",
-        params={"key": GOOGLE_FONTS_KEY, "sort": "alpha"},
-        timeout=10
-    )
-    r.raise_for_status()
-    return {f["family"]: f for f in r.json()["items"]}
+def _largeur(draw, texte, font):
+    bbox = draw.textbbox((0, 0), texte, font=font)
+    return bbox[2] - bbox[0]
 
 
-@lru_cache(maxsize=200)
-def load_font(name, size, weight=400, style="normal"):
-    if str(name).lower().endswith((".ttf", ".otf")):
-        p = font_path(name)
-    else:
-        font = google_fonts().get(name)
-
-        if not font:
-            raise HTTPException(400, f"Police Google Fonts introuvable : {name}")
-
-        variant = (
-            "italic" if style == "italic" and weight == 400
-            else f"{weight}italic" if style == "italic"
-            else "regular" if weight == 400
-            else str(weight)
-        )
-
-        url = font.get("files", {}).get(variant)
-
-        if not url:
-            raise HTTPException(
-                400,
-                f"{name} ne possède pas la variante {weight} {style}."
-            )
-
-        p = FONT_CACHE / f"{name}_{variant}.ttf"
-
-        if not p.exists():
-            r = requests.get(url, timeout=20)
-            r.raise_for_status()
-            p.write_bytes(r.content)
-
-    try:
-        return ImageFont.truetype(str(p), size)
-    except Exception as e:
-        raise HTTPException(400, f"Police introuvable : {name}") from e
-
-def font_path(name):
-    p = Path(name)
-    if p.is_absolute() and p.exists(): return p
-    for c in (FONTS_DIR / p.name, BASE_DIR / p, p):
-        if c.exists(): return c
-    return p
+def _lignes(draw, texte, font, largeur):
+    lignes, ligne = [], ""
+    for mot in texte.split():
+        test = f"{ligne} {mot}".strip()
+        if _largeur(draw, test, font) <= largeur:
+            ligne = test
+        else:
+            if ligne:
+                lignes.append(ligne)
+            ligne = mot
+    if ligne:
+        lignes.append(ligne)
+    return lignes
 
 
+def _hauteur_ligne(draw, font):
+    bbox = draw.textbbox((0, 0), "Ag", font=font)
+    return bbox[3] - bbox[1]
 
-def draw_centered_in_zone(draw, text, zone, font):
+
+def _tient(draw, texte, font, largeur, hauteur):
+    lignes = _lignes(draw, texte, font, largeur)
+    if not lignes:
+        return True
+    if any(_largeur(draw, l, font) > largeur for l in lignes):
+        return False  # un mot seul déborde en largeur
+    return _hauteur_ligne(draw, font) * len(lignes) <= hauteur
+
+
+def draw_centered_in_zone(draw, text, zone, font, color="#FFFFFF"):
     x = int(zone.get("x", 0))
     y = int(zone.get("y", 0))
     largeur = int(zone.get("largeur", 0))
     hauteur = int(zone.get("hauteur", 0))
-    taille = font.size
-    taille_minimum = 20
+    chemin = font.path
+    taille_max = int(font.size)
+    taille_min = min(20, taille_max)
 
-    while taille >= taille_minimum:
-        font = ImageFont.truetype(font.path, taille)
-        mots, lignes, ligne = text.split(), [], ""
+    # Recherche dichotomique de la plus grande taille qui tient dans la zone.
+    # Avant : on retirait 1 px à la fois en recréant la police à chaque tour, et
+    # hauteur_totale n'existait pas si la taille de départ était < 20 (NameError).
+    bas, haut, retenue = taille_min, taille_max, taille_min
+    while bas <= haut:
+        milieu = (bas + haut) // 2
+        if _tient(draw, text, police_a_taille(chemin, milieu), largeur, hauteur):
+            retenue, bas = milieu, milieu + 1
+        else:
+            haut = milieu - 1
 
-        for mot in mots:
-            test = f"{ligne} {mot}".strip()
-            bbox = draw.textbbox((0, 0), test, font=font)
-            if bbox[2] - bbox[0] <= largeur:
-                ligne = test
-            else:
-                if ligne: lignes.append(ligne)
-                ligne = mot
+    font = police_a_taille(chemin, retenue)
+    lignes = _lignes(draw, text, font, largeur)
+    if not lignes:
+        return
 
-        if ligne: lignes.append(ligne)
-
-        bbox = draw.textbbox((0, 0), "Ag", font=font)
-        hauteur_ligne = bbox[3] - bbox[1]
-        hauteur_totale = hauteur_ligne * len(lignes)
-
-        if hauteur_totale <= hauteur:
-            break
-
-        taille -= 1
-
-    if hauteur_totale > hauteur:
-        lignes = lignes[:max(1, hauteur // hauteur_ligne)]
+    hauteur_ligne = max(1, _hauteur_ligne(draw, font))
+    if hauteur_ligne * len(lignes) > hauteur:
+        lignes = lignes[: max(1, hauteur // hauteur_ligne)]
 
     pos_y = y + (hauteur - hauteur_ligne * len(lignes)) / 2
     alignement = zone.get("alignement", "center")
+    try:
+        fill = ImageColor.getcolor(color, "RGBA")
+    except (TypeError, ValueError):
+        fill = (255, 255, 255, 255)
 
     for ligne in lignes:
         bbox = draw.textbbox((0, 0), ligne, font=font)
@@ -150,16 +125,38 @@ def draw_centered_in_zone(draw, text, zone, font):
         else:
             pos_x = x + (largeur - largeur_ligne) / 2
 
-        draw.text(
-            (pos_x, pos_y - bbox[1]),
-            ligne,
-            font=font,
-            fill=(255, 255, 255, 255)
-        )
+        draw.text((pos_x, pos_y - bbox[1]), ligne, font=font, fill=fill)
         pos_y += hauteur_ligne
 
 
-def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", modele="", preview=False, fontes=None):
+def appliquer_filtre_couleur(image, couleur, opacite, zone=None):
+    opacite = max(0, min(100, int(opacite)))
+    if opacite == 0:
+        return image
+
+    try:
+        rgb = ImageColor.getrgb(couleur)[:3]
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(400, "Couleur de filtre invalide.") from exc
+
+    alpha = round(255 * opacite / 100)
+    calque = Image.new("RGBA", image.size, (*rgb, alpha))
+
+    if zone:
+        masque = Image.new("L", image.size, 0)
+        x0 = max(0, int(zone.get("x", 0)))
+        y0 = max(0, int(zone.get("y", 0)))
+        x1 = min(image.width, x0 + max(0, int(zone.get("largeur", 0))))
+        y1 = min(image.height, y0 + max(0, int(zone.get("hauteur", 0))))
+        if x1 <= x0 or y1 <= y0:
+            return image
+        ImageDraw.Draw(masque).rectangle((x0, y0, x1 - 1, y1 - 1), fill=alpha)
+        calque.putalpha(masque)
+
+    return Image.alpha_composite(image.convert("RGBA"), calque)
+
+
+def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", modele="", preview=False, fontes=None, couleur_filtre="#3F257C", opacite_filtre=0):
     overlay = load_image(config.get("calque_fixe"))
 
     if overlay is None:
@@ -171,73 +168,23 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
         None
     )
 
-    fond_path = config.get("fond_defaut")
+    if not uploaded_bytes:
+        raise HTTPException(400, "Choisissez une image de fond avant la generation.")
 
-    if fond_path:
-        try:
-            img = load_image(fond_path)
-        except HTTPException:
-            img = None
-    else:
-        img = None
+    try:
+        uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
+    except Exception as exc:
+        raise HTTPException(400, "Image invalide.") from exc
 
-    if img is None and uploaded_bytes:
-        try:
-            uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-        except Exception as e:
-            raise HTTPException(400, "Image invalide.") from e
-
+    if zone_image:
         img = Image.new("RGBA", overlay.size, (255, 255, 255, 255))
+        box = (int(zone_image["largeur"]), int(zone_image["hauteur"]))
+        uploaded = ImageOps.fit(uploaded, box, Image.Resampling.LANCZOS)
+        img.alpha_composite(uploaded, (int(zone_image["x"]), int(zone_image["y"])))
+    else:
+        img = ImageOps.fit(uploaded, overlay.size, Image.Resampling.LANCZOS).convert("RGBA")
 
-        if zone_image:
-            box = (
-                int(zone_image["largeur"]),
-                int(zone_image["hauteur"])
-            )
-            uploaded = ImageOps.fit(uploaded, box, Image.Resampling.LANCZOS)
-            img.alpha_composite(
-                uploaded,
-                (int(zone_image["x"]), int(zone_image["y"]))
-            )
-        else:
-            img = ImageOps.fit(
-                uploaded,
-                overlay.size,
-                Image.Resampling.LANCZOS
-            ).convert("RGBA")
-
-    if img is None:
-        raise HTTPException(400, "Le modèle n'a pas encore d'image de base.")
-
-    if img.size != overlay.size:
-        img = ImageOps.fit(
-            img,
-            overlay.size,
-            Image.Resampling.LANCZOS
-        ).convert("RGBA")
-
-    if uploaded_bytes and fond_path and zone_image:
-        try:
-            uploaded = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-        except Exception as e:
-            raise HTTPException(400, "Image invalide.") from e
-
-        box = (
-            int(zone_image["largeur"]),
-            int(zone_image["hauteur"])
-        )
-
-        uploaded = ImageOps.fit(
-            uploaded,
-            box,
-            Image.Resampling.LANCZOS
-        )
-
-        img.alpha_composite(
-            uploaded,
-            (int(zone_image["x"]), int(zone_image["y"]))
-        )
-
+    img = appliquer_filtre_couleur(img, couleur_filtre, opacite_filtre, zone_image)
     img = Image.alpha_composite(img, overlay)
     draw = ImageDraw.Draw(img)
 
@@ -256,7 +203,7 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
             int(fonte.get("weight", zone.get("weight", 400))),
             fonte.get("style", zone.get("style", "normal"))
         )
-        draw_centered_in_zone(draw, text, zone, font)
+        draw_centered_in_zone(draw, text, zone, font, fonte.get("color", zone.get("color", "#FFFFFF")))
 
     if preview:
         buf = io.BytesIO()
@@ -269,7 +216,7 @@ def generate_flexible(config, valeurs, uploaded_bytes=None, entreprise="", model
     return save_and_response(img, entreprise, modele)
 
 
-def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=""):
+def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele="", couleur_filtre="#3F257C", opacite_filtre=0):
     overlay_raw = config.get("overlay")
     overlays = config.get("overlays") or ([overlay_raw] if overlay_raw else [])
 
@@ -279,10 +226,12 @@ def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=
     overlay = load_image(overlays[0])
     target = overlay.size
 
-    if uploaded_bytes:
+    if not uploaded_bytes:
+        raise HTTPException(400, "Choisissez une image de fond avant la generation.")
+    try:
         background = Image.open(io.BytesIO(uploaded_bytes)).convert("RGBA")
-    else:
-        background = load_image(config.get("fond_defaut"))
+    except Exception as exc:
+        raise HTTPException(400, "Image invalide.") from exc
 
     offset = int(config.get("fond_y_offset", 0))
     canvas = Image.new("RGBA", target, (255, 255, 255, 255))
@@ -295,6 +244,10 @@ def generate_legacy(config, valeurs, uploaded_bytes=None, entreprise="", modele=
     ).convert("RGBA")
 
     canvas.alpha_composite(bg, (0, offset))
+    canvas = appliquer_filtre_couleur(
+        canvas, couleur_filtre, opacite_filtre,
+        {"x": 0, "y": offset, "largeur": target[0], "hauteur": h},
+    )
 
     for raw in overlays:
         p = resolve_path(raw)
@@ -344,7 +297,7 @@ def save_and_response(img, entreprise, modele):
     )
 
 
-def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None, preview=False, fontes=None):
+def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None, preview=False, fontes=None, couleur_filtre="#3F257C", opacite_filtre=0):
     if translate:
         zones = config.get("zones_modifiables", {})
 
@@ -368,7 +321,9 @@ def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None
             entreprise,
             modele,
             preview,
-            fontes
+            fontes,
+            couleur_filtre,
+            opacite_filtre,
         )
 
     return generate_legacy(
@@ -376,7 +331,9 @@ def generate(config, valeurs, uploaded_bytes, entreprise, modele, translate=None
         valeurs,
         uploaded_bytes,
         entreprise,
-        modele
+        modele,
+        couleur_filtre,
+        opacite_filtre,
     )
 
 

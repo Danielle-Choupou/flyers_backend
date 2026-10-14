@@ -1,7 +1,10 @@
 from pathlib import Path
 from fastapi import HTTPException
-from services.storage import save_configs
-from config import TEMPLATES_DIR
+from services.storage import (
+    create_template_record,
+    template_storage_path,
+    upload_template_file,
+)
 
 def normalize(name: str) -> str:
     return (name or "").strip().upper()
@@ -47,25 +50,20 @@ def ajouter_modele(data, templates, profiles):
         raise HTTPException(404, "Entreprise introuvable.")
     if modele in templates[entreprise]:
         raise HTTPException(400, "Ce modèle existe déjà.")
-    required = ("base_reference", "calque_fixe", "fond_defaut", "zones_modifiables")
+    required = ("base_reference", "calque_fixe", "zones_modifiables")
     if any(k not in config for k in required):
         raise HTTPException(400, "Configuration du modèle incomplète.")
+    config = dict(config)
     config["objectif_publication"] = objectif
+    create_template_record(entreprise, modele, config)
     templates[entreprise][modele] = config
-    save_configs(profiles, templates)
     return {"status": "ok", "message": f"Modèle {modele} enregistré.", "modele": modele, "objectif_publication": objectif, "config": config}
 
-def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes, fond_bytes):
-    dossier = TEMPLATES_DIR / entreprise
-    dossier.mkdir(parents=True, exist_ok=True)
-    paths = {
-        "base_reference": dossier / f"{modele}_base.png",
-        "calque_fixe": dossier / f"{modele}_overlay.png",
-        "fond_defaut": dossier / f"{modele}_fond.png",
+def save_uploaded_template_files(entreprise, modele, base_bytes, overlay_bytes):
+    return {
+        "base_reference": upload_template_file(entreprise, modele, "base_reference", base_bytes),
+        "calque_fixe": upload_template_file(entreprise, modele, "calque_fixe", overlay_bytes),
     }
-    for key, content in (("base_reference", base_bytes), ("calque_fixe", overlay_bytes), ("fond_defaut", fond_bytes)):
-        paths[key].write_bytes(content)
-    return {k: str(v) for k, v in paths.items()}
 
 def obtenir_fichier_modele(entreprise, modele, fichier, templates):
     entreprise=normalize(entreprise)
@@ -80,4 +78,4 @@ def obtenir_fichier_modele(entreprise, modele, fichier, templates):
     if not chemin:
         raise HTTPException(404,"Fichier introuvable.")
 
-    return Path(chemin)
+    return template_storage_path(entreprise, modele, fichier)

@@ -11,8 +11,10 @@ venv/
 env/
 
 font_cache/
+fonts/
 generated_images/
 output/
+templates/
 *.log
 
 .pytest_cache/
