@@ -22,10 +22,101 @@ class CaptionRequest(BaseModel):
 
 class CaptionAdaptationRequest(BaseModel):
     entreprise: str
-    template_type: str
     langue: str = "Français"
     texte_source: str
     reseaux: list[str]
+
+
+def _intervalle_regle(valeur):
+    nombres = re.findall(r"\d+", str(valeur or ""))
+    return (int(nombres[0]), int(nombres[1])) if len(nombres) >= 2 else None
+
+
+def _generer_newsletter(entreprise, langue, texte_source, profiles):
+    profil = profiles[entreprise]
+    regles = _regles_reseau(profil, "Newsletter")
+    limite_caracteres = int(regles["max_caracteres"])
+    intervalle_ideal = _intervalle_regle(regles.get("longueur_ideale"))
+    if intervalle_ideal:
+        minimum_caracteres = intervalle_ideal[0]
+        maximum_caracteres = min(intervalle_ideal[1], limite_caracteres)
+        objectif_caracteres = (minimum_caracteres + maximum_caracteres) // 2
+        consigne_longueur = (
+            f"La longueur totale est une exigence stricte : rédige entre {minimum_caracteres} et {maximum_caracteres} caractères, "
+            f"espaces compris, et vise environ {objectif_caracteres} caractères. "
+            "Développe suffisamment chaque rubrique selon les limites indiquées dans la charte."
+        )
+    else:
+        minimum_caracteres = None
+        maximum_caracteres = limite_caracteres
+        objectif_caracteres = limite_caracteres
+        consigne_longueur = f"Ne dépasse jamais {limite_caracteres} caractères, espaces compris."
+    profil_json = json.dumps(profil, ensure_ascii=False, indent=2)
+    regles_json = json.dumps(regles, ensure_ascii=False, indent=2)
+    system_prompt = f"""Tu rédiges la newsletter de {profil.get('nom_officiel', entreprise)} en {langue}.
+Applique la charte du canal et les règles de longueur fournies dans le profil de l'entreprise. Reprends la structure configurée pour Newsletter.
+{consigne_longueur}
+N'invente aucun fait : utilise uniquement le texte source et les informations du profil d'entreprise. Si une information nécessaire manque, signale-la clairement.
+Retourne uniquement le contenu final de la newsletter, avec des titres de section lisibles. La sortie doit contenir uniquement la newsletter, sans commentaire sur les règles.
+Profil de l'entreprise :
+{profil_json}
+Règles du canal Newsletter :
+{regles_json}"""
+
+    derniere_erreur = None
+    for tentative in range(2):
+        contenu_utilisateur = f"Texte source à transformer en newsletter :\n{texte_source}"
+        if derniere_erreur:
+            if minimum_caracteres is not None and derniere_erreur < minimum_caracteres:
+                correction_longueur = (
+                    f"Ajoute au moins {minimum_caracteres - derniere_erreur} caractères pour atteindre le minimum. "
+                    f"Développe les rubriques jusqu'à environ {objectif_caracteres} caractères."
+                )
+            else:
+                correction_longueur = (
+                    f"Raccourcis le texte à {maximum_caracteres} caractères maximum, espaces compris, "
+                    "en conservant les informations essentielles."
+                )
+            contenu_utilisateur += (
+                f"\n\nLa version précédente comptait {derniere_erreur} caractères. {correction_longueur} "
+                f"N'invente aucun fait et ne dépasse jamais {limite_caracteres} caractères."
+            )
+        try:
+            response = Groq(api_key=GROQ_API_KEY).chat.completions.create(
+                model="qwen/qwen3.8-27b",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": contenu_utilisateur},
+                ],
+                temperature=0.35,
+                reasoning_effort="none",
+                reasoning_format="hidden",
+                max_completion_tokens=3500,
+            )
+            texte = (response.choices[0].message.content or "").strip()
+            if not texte:
+                raise ValueError("Le modèle a renvoyé une réponse vide.")
+            caracteres = len(texte)
+            if caracteres > maximum_caracteres or (minimum_caracteres is not None and caracteres < minimum_caracteres):
+                derniere_erreur = caracteres
+                continue
+            return {
+                "texte": texte,
+                "caracteres": caracteres,
+                "minimum_caracteres": minimum_caracteres,
+                "maximum_caracteres": maximum_caracteres,
+                "maximum": limite_caracteres,
+                "format": "newsletter",
+            }
+        except HTTPException:
+            raise
+        except Exception as exc:
+            raise HTTPException(502, f"La génération de la newsletter a échoué : {exc}") from exc
+
+    raise HTTPException(
+        502,
+        f"La newsletter générée ({derniere_erreur} caractères) ne respecte pas la longueur définie dans sa charte.",
+    )
 
 def build_system_prompt(entreprise, profiles, template_type):
     profil = profiles.get(entreprise)
@@ -118,6 +209,8 @@ def _regles_reseau(profil, reseau):
     if not isinstance(regles, dict):
         raise HTTPException(400, f"Les règles de {reseau} sont absentes du profil Supabase de {profil.get('nom_officiel', 'cette entreprise')}.")
     if "max_caracteres" not in regles:
+        if reseau == "Newsletter" and isinstance(regles.get("longueur_mots"), dict):
+            return regles
         raise HTTPException(400, f"La limite max_caracteres de {reseau} est absente du profil Supabase.")
     try:
         regles = {**regles, "max_caracteres": int(regles["max_caracteres"])}
@@ -128,15 +221,25 @@ def _regles_reseau(profil, reseau):
     return regles
 
 
-def _adaptation_prompt(entreprise, profiles, template_type, langue, reseau):
+def _adaptation_prompt(entreprise, profiles, langue, reseau):
     profil = profiles.get(entreprise)
     if not profil:
         raise HTTPException(400, f"Aucun profil éditorial pour {entreprise}")
     regles = _regles_reseau(profil, reseau)
     profil_json = json.dumps(profil, ensure_ascii=False, indent=2)
     regles_json = json.dumps(regles, ensure_ascii=False, indent=2)
+    minimum_hashtags = int(regles.get("min_hashtags", 0))
+    maximum_hashtags = int(regles.get("max_hashtags", 0))
+    if maximum_hashtags:
+        consigne_hashtags = (
+            f"Utilise entre {minimum_hashtags} et {maximum_hashtags} hashtags,"
+            if minimum_hashtags != maximum_hashtags
+            else f"Utilise exactement {maximum_hashtags} hashtags,"
+        )
+        consigne_hashtags += " conformément à la règle de la plateforme."
+    else:
+        consigne_hashtags = "N'utilise aucun hashtag."
     return f"""Tu es le community manager de {profil.get('nom_officiel', entreprise)}.
-Contexte du flyer : {template_type}.
 Langue de sortie : {langue}.
 
 Voici toutes les informations éditoriales validées pour cette entreprise, depuis son profil Supabase :
@@ -147,7 +250,7 @@ Voici les règles validées pour la plateforme {reseau} (elles priment pour les 
 
 Adapte le texte source pour {reseau} en appliquant le profil complet de l'entreprise : identité, secteur, historique, rôle, ton, niveau de formalité, cible, objectifs, valeurs, vocabulaire recommandé, termes à éviter, règles strictes, informations locales et toutes les autres consignes pertinentes présentes dans le profil.
 Respecte impérativement la structure et la longueur idéale de la plateforme si elles sont définies. La limite absolue est de {regles['max_caracteres']} caractères, espaces compris.
-Respecte le nombre de hashtags et l'usage des emojis définis par l'entreprise et la plateforme.
+{consigne_hashtags} Respecte aussi l'usage des emojis défini par l'entreprise et la plateforme.
 N'ajoute aucun fait, chiffre, disponibilité, promesse, adresse ou lien qui n'apparait pas dans le texte source ou dans les informations validées du profil. Si une information nécessaire manque, applique la consigne mention_manquante du profil lorsqu'elle existe.
 Ne génère pas une nouvelle campagne : reformule et ajuste uniquement le contenu fourni.
 Ne mentionne jamais l'IA, ne montre pas ton raisonnement, et retourne uniquement le caption final sans guillemets ni préambule."""
@@ -170,12 +273,21 @@ def adapt_caption(request, profiles):
     adaptations = {}
     try:
         for reseau in reseaux:
+            if reseau == "Newsletter":
+                adaptations[reseau] = _generer_newsletter(
+                    entreprise,
+                    request.langue,
+                    texte_source,
+                    profiles,
+                )
+                continue
+
             prompt = f"""Texte source fourni par l'utilisateur :
 {texte_source}
 
 Adapte ce texte pour {reseau}. Respecte impérativement la limite de caractères et retourne uniquement la version finale."""
             limite = _regles_reseau(profiles[entreprise], reseau)["max_caracteres"]
-            system_prompt = _adaptation_prompt(entreprise, profiles, request.template_type, request.langue, reseau)
+            system_prompt = _adaptation_prompt(entreprise, profiles, request.langue, reseau)
             client = Groq(api_key=GROQ_API_KEY)
             texte = ""
             for tentative in range(2):
