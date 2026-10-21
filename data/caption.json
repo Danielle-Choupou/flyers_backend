@@ -71,63 +71,83 @@
     "regles_reseaux": {
       "LinkedIn": {
         "ton": "expert, professionnel, business et institutionnel mais humain",
-        "max_caracteres": 3000,
-        "zone_coupure": "210 - 250 car.",
+        "max_caracteres": 2000,
+        "zone_coupure": "200 - 250 car.",
         "longueur_ideale": "1000 - 1800 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Hook -> Problème -> Explication -> Solution -> Bénéfice -> CTA"
+        "structure": "Hook -> Problème -> Explication -> Solution -> Bénéfice -> CTA",
+        "min_hashtags": 5
       },
       "Facebook": {
         "ton": "plus accessible et proche",
-        "max_caracteres": 63206,
-        "zone_coupure": "250 - 480 car.",
-        "longueur_ideale": "200 - 600 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "120 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 7,
         "emojis": true,
-        "structure": "Focus produits, points de vente, actualités et démonstrations"
+        "structure": "Focus produits, points de vente, actualités et démonstrations",
+        "min_hashtags": 6
       },
       "Instagram": {
         "ton": "moderne, visuel et dynamique",
-        "max_caracteres": 2200,
+        "max_caracteres": 1000,
         "zone_coupure": "125 car.",
-        "longueur_ideale": "150 - 500 car.",
-        "hashtags": true,
-        "max_hashtags": 10,
-        "emojis": true,
-        "structure": "Reels, équipements en situation, showroom, coulisses"
-      },
-      "TikTok": {
-        "ton": "direct, naturel et pédagogique",
-        "max_caracteres": 4000,
-        "zone_coupure": "80 - 150 car.",
-        "longueur_ideale": "150 - 400 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Hook percutant, format court, questions pratiques"
+        "structure": "Reels, équipements en situation, showroom, coulisses",
+        "min_hashtags": 5
+      },
+      "TikTok": {
+        "ton": "direct, naturel et pédagogique",
+        "max_caracteres": 1000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Hook percutant, format court, questions pratiques",
+        "min_hashtags": 5
       },
       "YouTube": {
         "ton": "descriptif, informatif, technique",
-        "max_caracteres": 5000,
-        "zone_coupure": "150 car.",
-        "longueur_ideale": "300 - 1000 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 5,
         "emojis": false,
-        "structure": "Résumé clair de l'équipement + démonstration / liens"
+        "structure": "Résumé clair de l'équipement + démonstration / liens",
+        "min_hashtags": 3
       },
       "Google Business Profile": {
         "ton": "local, commercial, direct",
-        "max_caracteres": 1500,
-        "zone_coupure": "70 - 100 car.",
-        "longueur_ideale": "150 - 300 car.",
+        "max_caracteres": 800,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "300 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 4,
+        "emojis": false,
+        "structure": "Actualité ou offre claire + appel en point de vente",
+        "min_hashtags": 4
+      },
+      "Newsletter": {
+        "ton": "professionnel, crédible, informatif, accessible, dynamique et institutionnel si besoin (vouvoiement)",
         "hashtags": false,
         "max_hashtags": 0,
         "emojis": false,
-        "structure": "Actualité ou offre claire + appel en point de vente"
+        "cta": {
+          "libelle_bouton": "2 - 4 mots (ex: Voir plus, En savoir plus)",
+          "libelle_bouton_commercial": "2 - 6 mots (ex: Découvrir nos services, Demander un devis)"
+        },
+        "structure": "En-tête -> Objet & Pré-en-tête -> Titre Principal -> Intro -> Actu Principale (Aperçu + CTA) -> Rubriques Secondaires -> CTA Principal -> Conclusion -> Pied de page",
+        "max_caracteres": 4000,
+        "zone_coupure": "Aucune coupure automatique (email)",
+        "longueur_ideale": "2000 - 4000 car."
       }
     }
   },
@@ -210,63 +230,83 @@
     "regles_reseaux": {
       "LinkedIn": {
         "ton": "technique, expert, axé sur les décideurs et la maintenance",
-        "max_caracteres": 3000,
-        "zone_coupure": "210 - 250 car.",
+        "max_caracteres": 2000,
+        "zone_coupure": "200 - 250 car.",
         "longueur_ideale": "1000 - 1800 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": false,
-        "structure": "Problème -> Explication -> Solution technique -> Bénéfice -> CTA"
+        "structure": "Problème -> Explication -> Solution technique -> Bénéfice -> CTA",
+        "min_hashtags": 5
       },
       "Facebook": {
         "ton": "accessible et pédagogique",
-        "max_caracteres": 63206,
-        "zone_coupure": "250 - 480 car.",
-        "longueur_ideale": "200 - 600 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "120 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 7,
         "emojis": true,
-        "structure": "Simplification des sujets techniques, conseils et applications"
+        "structure": "Simplification des sujets techniques, conseils et applications",
+        "min_hashtags": 6
       },
       "Instagram": {
         "ton": "visuel et technique",
-        "max_caracteres": 2200,
+        "max_caracteres": 1000,
         "zone_coupure": "125 car.",
-        "longueur_ideale": "150 - 500 car.",
-        "hashtags": true,
-        "max_hashtags": 10,
-        "emojis": true,
-        "structure": "Démonstrations, gros plans produits, réels techniques"
-      },
-      "TikTok": {
-        "ton": "pédagogique court et direct",
-        "max_caracteres": 4000,
-        "zone_coupure": "80 - 150 car.",
-        "longueur_ideale": "150 - 400 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Explication de composants de façon simple"
+        "structure": "Démonstrations, gros plans produits, réels techniques",
+        "min_hashtags": 5
+      },
+      "TikTok": {
+        "ton": "pédagogique court et direct",
+        "max_caracteres": 1000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Explication de composants de façon simple",
+        "min_hashtags": 5
       },
       "YouTube": {
         "ton": "informatif et détaillé",
-        "max_caracteres": 5000,
-        "zone_coupure": "150 car.",
-        "longueur_ideale": "300 - 1000 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 5,
         "emojis": false,
-        "structure": "Tutoriels et présentations d'installations"
+        "structure": "Tutoriels et présentations d'installations",
+        "min_hashtags": 3
       },
       "Google Business Profile": {
         "ton": "commercial et local",
-        "max_caracteres": 1500,
-        "zone_coupure": "70 - 100 car.",
-        "longueur_ideale": "150 - 300 car.",
+        "max_caracteres": 800,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "300 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 4,
+        "emojis": false,
+        "structure": "Disponibilité stock et services d'installation",
+        "min_hashtags": 4
+      },
+      "Newsletter": {
+        "ton": "professionnel, crédible, informatif, accessible, dynamique et institutionnel si besoin (vouvoiement)",
         "hashtags": false,
         "max_hashtags": 0,
         "emojis": false,
-        "structure": "Disponibilité stock et services d'installation"
+        "cta": {
+          "libelle_bouton": "2 - 4 mots (ex: Voir plus, En savoir plus)",
+          "libelle_bouton_commercial": "2 - 6 mots (ex: Découvrir nos services, Demander un devis)"
+        },
+        "structure": "En-tête -> Objet & Pré-en-tête -> Titre Principal -> Intro -> Actu Principale (Aperçu + CTA) -> Rubriques Secondaires -> CTA Principal -> Conclusion -> Pied de page",
+        "max_caracteres": 4000,
+        "zone_coupure": "Aucune coupure automatique (email)",
+        "longueur_ideale": "2000 - 4000 car."
       }
     }
   },
@@ -346,63 +386,83 @@
     "regles_reseaux": {
       "LinkedIn": {
         "ton": "corporate, B2B, axé supply chain et sourcing international",
-        "max_caracteres": 3000,
-        "zone_coupure": "210 - 250 car.",
+        "max_caracteres": 2000,
+        "zone_coupure": "200 - 250 car.",
         "longueur_ideale": "1000 - 1800 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": false,
-        "structure": "Problème d'approvisionnement -> Rôle du sourcing -> Solution ITAC -> CTA"
+        "structure": "Problème d'approvisionnement -> Rôle du sourcing -> Solution ITAC -> CTA",
+        "min_hashtags": 5
       },
       "Facebook": {
         "ton": "accessible et professionnel",
-        "max_caracteres": 63206,
-        "zone_coupure": "250 - 480 car.",
-        "longueur_ideale": "200 - 600 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "120 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 7,
         "emojis": true,
-        "structure": "Présentation des pièces, marques et actualités"
+        "structure": "Présentation des pièces, marques et actualités",
+        "min_hashtags": 6
       },
       "Instagram": {
         "ton": "visuel et logistique",
-        "max_caracteres": 2200,
+        "max_caracteres": 1000,
         "zone_coupure": "125 car.",
-        "longueur_ideale": "150 - 500 car.",
-        "hashtags": true,
-        "max_hashtags": 10,
-        "emojis": true,
-        "structure": "Entrepôts, équipes, process de sourcing et carrousels"
-      },
-      "TikTok": {
-        "ton": "dynamique et éducatif",
-        "max_caracteres": 4000,
-        "zone_coupure": "80 - 150 car.",
-        "longueur_ideale": "150 - 400 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Pédagogie sur la recherche de pièces et la logistique internationale"
+        "structure": "Entrepôts, équipes, process de sourcing et carrousels",
+        "min_hashtags": 5
+      },
+      "TikTok": {
+        "ton": "dynamique et éducatif",
+        "max_caracteres": 1000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Pédagogie sur la recherche de pièces et la logistique internationale",
+        "min_hashtags": 5
       },
       "YouTube": {
         "ton": "informatif",
-        "max_caracteres": 5000,
-        "zone_coupure": "150 car.",
-        "longueur_ideale": "300 - 1000 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 5,
         "emojis": false,
-        "structure": "Présentation des services d'import-export et logistique"
+        "structure": "Présentation des services d'import-export et logistique",
+        "min_hashtags": 3
       },
       "Google Business Profile": {
         "ton": "commercial",
-        "max_caracteres": 1500,
-        "zone_coupure": "70 - 100 car.",
-        "longueur_ideale": "150 - 300 car.",
+        "max_caracteres": 800,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "300 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 4,
+        "emojis": false,
+        "structure": "Solutions d'approvisionnement et contact direct",
+        "min_hashtags": 4
+      },
+      "Newsletter": {
+        "ton": "professionnel, crédible, informatif, accessible, dynamique et institutionnel si besoin (vouvoiement)",
         "hashtags": false,
         "max_hashtags": 0,
         "emojis": false,
-        "structure": "Solutions d'approvisionnement et contact direct"
+        "cta": {
+          "libelle_bouton": "2 - 4 mots (ex: Voir plus, En savoir plus)",
+          "libelle_bouton_commercial": "2 - 6 mots (ex: Découvrir nos services, Demander un devis)"
+        },
+        "structure": "En-tête -> Objet & Pré-en-tête -> Titre Principal -> Intro -> Actu Principale (Aperçu + CTA) -> Rubriques Secondaires -> CTA Principal -> Conclusion -> Pied de page",
+        "max_caracteres": 4000,
+        "zone_coupure": "Aucune coupure automatique (email)",
+        "longueur_ideale": "2000 - 4000 car."
       }
     }
   },
@@ -478,63 +538,83 @@
     "regles_reseaux": {
       "LinkedIn": {
         "ton": "professionnel, corporate, expert, orienté industrie et business",
-        "max_caracteres": 3000,
-        "zone_coupure": "210 - 250 car.",
+        "max_caracteres": 2000,
+        "zone_coupure": "200 - 250 car.",
         "longueur_ideale": "1000 - 1800 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": false,
-        "structure": "Besoin -> Équipement -> Expertise technique -> Service de maintenance -> CTA"
+        "structure": "Besoin -> Équipement -> Expertise technique -> Service de maintenance -> CTA",
+        "min_hashtags": 5
       },
       "Facebook": {
         "ton": "accessible, informatif, proche",
-        "max_caracteres": 63206,
-        "zone_coupure": "250 - 480 car.",
-        "longueur_ideale": "200 - 600 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "120 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 7,
         "emojis": true,
-        "structure": "Présentation des showrooms de Bata et Malabo, actualités et produits"
+        "structure": "Présentation des showrooms de Bata et Malabo, actualités et produits",
+        "min_hashtags": 6
       },
       "Instagram": {
         "ton": "visuel, moderne, dynamique",
-        "max_caracteres": 2200,
+        "max_caracteres": 1000,
         "zone_coupure": "125 car.",
-        "longueur_ideale": "150 - 500 car.",
-        "hashtags": true,
-        "max_hashtags": 10,
-        "emojis": true,
-        "structure": "Showrooms, équipements en action, équipes et démonstrations"
-      },
-      "TikTok": {
-        "ton": "direct, pédagogique, démonstratif",
-        "max_caracteres": 4000,
-        "zone_coupure": "80 - 150 car.",
-        "longueur_ideale": "150 - 400 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Présentation rapide de matériel technique et conseils d'utilisation"
+        "structure": "Showrooms, équipements en action, équipes et démonstrations",
+        "min_hashtags": 5
+      },
+      "TikTok": {
+        "ton": "direct, pédagogique, démonstratif",
+        "max_caracteres": 1000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Présentation rapide de matériel technique et conseils d'utilisation",
+        "min_hashtags": 5
       },
       "YouTube": {
         "ton": "descriptif",
-        "max_caracteres": 5000,
-        "zone_coupure": "150 car.",
-        "longueur_ideale": "300 - 1000 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 5,
         "emojis": false,
-        "structure": "Vidéos de présentation des secteurs et de la maintenance"
+        "structure": "Vidéos de présentation des secteurs et de la maintenance",
+        "min_hashtags": 3
       },
       "Google Business Profile": {
         "ton": "local et commercial",
-        "max_caracteres": 1500,
-        "zone_coupure": "70 - 100 car.",
-        "longueur_ideale": "150 - 300 car.",
+        "max_caracteres": 800,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "300 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 4,
+        "emojis": false,
+        "structure": "Points de vente Bata/Malabo et services techniques",
+        "min_hashtags": 4
+      },
+      "Newsletter": {
+        "ton": "professionnel, crédible, informatif, accessible, dynamique et institutionnel si besoin (vouvoiement)",
         "hashtags": false,
         "max_hashtags": 0,
         "emojis": false,
-        "structure": "Points de vente Bata/Malabo et services techniques"
+        "cta": {
+          "libelle_bouton": "2 - 4 mots (ex: Voir plus, En savoir plus)",
+          "libelle_bouton_commercial": "2 - 6 mots (ex: Découvrir nos services, Demander un devis)"
+        },
+        "structure": "En-tête -> Objet & Pré-en-tête -> Titre Principal -> Intro -> Actu Principale (Aperçu + CTA) -> Rubriques Secondaires -> CTA Principal -> Conclusion -> Pied de page",
+        "max_caracteres": 4000,
+        "zone_coupure": "Aucune coupure automatique (email)",
+        "longueur_ideale": "2000 - 4000 car."
       }
     }
   },
@@ -626,63 +706,83 @@
     "regles_reseaux": {
       "LinkedIn": {
         "ton": "professionnel, stratégique, expert et pédagogique",
-        "max_caracteres": 3000,
-        "zone_coupure": "210 - 250 car.",
+        "max_caracteres": 2000,
+        "zone_coupure": "200 - 250 car.",
         "longueur_ideale": "1000 - 1800 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Hook -> Problème métier -> Explication -> Solution digitale -> Bénéfice -> CTA"
+        "structure": "Hook -> Problème métier -> Explication -> Solution digitale -> Bénéfice -> CTA",
+        "min_hashtags": 5
       },
       "Facebook": {
         "ton": "professionnel mais plus accessible",
-        "max_caracteres": 63206,
-        "zone_coupure": "250 - 480 car.",
-        "longueur_ideale": "200 - 600 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "120 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 7,
         "emojis": true,
-        "structure": "Conseils, vulgarisation, actualités et présentations de services"
+        "structure": "Conseils, vulgarisation, actualités et présentations de services",
+        "min_hashtags": 6
       },
       "Instagram": {
         "ton": "visuel, moderne, dynamique et épuré",
-        "max_caracteres": 2200,
+        "max_caracteres": 1000,
         "zone_coupure": "125 car.",
-        "longueur_ideale": "150 - 500 car.",
-        "hashtags": true,
-        "max_hashtags": 10,
-        "emojis": true,
-        "structure": "Reels, carrousels éducatifs, infographies, coulisses"
-      },
-      "TikTok": {
-        "ton": "direct, dynamique, pédagogique et humain",
-        "max_caracteres": 4000,
-        "zone_coupure": "80 - 150 car.",
-        "longueur_ideale": "150 - 400 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
         "max_hashtags": 5,
         "emojis": true,
-        "structure": "Format court 'Saviez-vous que…', astuces digitales et avant/après"
+        "structure": "Reels, carrousels éducatifs, infographies, coulisses",
+        "min_hashtags": 5
+      },
+      "TikTok": {
+        "ton": "direct, dynamique, pédagogique et humain",
+        "max_caracteres": 1000,
+        "zone_coupure": "80 - 150 car.",
+        "longueur_ideale": "200 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 5,
+        "emojis": true,
+        "structure": "Format court 'Saviez-vous que…', astuces digitales et avant/après",
+        "min_hashtags": 5
       },
       "YouTube": {
         "ton": "informatif et démonstratif",
-        "max_caracteres": 5000,
-        "zone_coupure": "150 car.",
-        "longueur_ideale": "300 - 1000 car.",
+        "max_caracteres": 1000,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "500 - 900 car.",
         "hashtags": true,
-        "max_hashtags": 3,
+        "max_hashtags": 5,
         "emojis": false,
-        "structure": "Démos de tableaux de bord, tutoriels ERP et webinaires"
+        "structure": "Démos de tableaux de bord, tutoriels ERP et webinaires",
+        "min_hashtags": 3
       },
       "Google Business Profile": {
         "ton": "commercial et local",
-        "max_caracteres": 1500,
-        "zone_coupure": "70 - 100 car.",
-        "longueur_ideale": "150 - 300 car.",
+        "max_caracteres": 800,
+        "zone_coupure": "100 - 150 car.",
+        "longueur_ideale": "300 - 600 car.",
+        "hashtags": true,
+        "max_hashtags": 4,
+        "emojis": false,
+        "structure": "Offre de services de conseil et transformation digitale",
+        "min_hashtags": 4
+      },
+      "Newsletter": {
+        "ton": "professionnel, crédible, informatif, accessible, dynamique et institutionnel si besoin (vouvoiement)",
         "hashtags": false,
         "max_hashtags": 0,
         "emojis": false,
-        "structure": "Offre de services de conseil et transformation digitale"
+        "cta": {
+          "libelle_bouton": "2 - 4 mots (ex: Voir plus, En savoir plus)",
+          "libelle_bouton_commercial": "2 - 6 mots (ex: Découvrir nos services, Demander un devis)"
+        },
+        "structure": "En-tête -> Objet & Pré-en-tête -> Titre Principal -> Intro -> Actu Principale (Aperçu + CTA) -> Rubriques Secondaires -> CTA Principal -> Conclusion -> Pied de page",
+        "max_caracteres": 4000,
+        "zone_coupure": "Aucune coupure automatique (email)",
+        "longueur_ideale": "2000 - 4000 car."
       }
     }
   }
