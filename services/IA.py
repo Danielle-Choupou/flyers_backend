@@ -1,5 +1,6 @@
 import json
 import os, re
+import unicodedata
 from typing import Optional
 from fastapi import HTTPException
 from groq import Groq
@@ -25,6 +26,9 @@ class CaptionAdaptationRequest(BaseModel):
     langue: str = "Français"
     texte_source: str
     reseaux: list[str]
+    entreprise_source: Optional[str] = None
+    source_differente: bool = False
+    confirmer_transfert: bool = False
 
 
 def _intervalle_regle(valeur):
@@ -32,7 +36,79 @@ def _intervalle_regle(valeur):
     return (int(nombres[0]), int(nombres[1])) if len(nombres) >= 2 else None
 
 
-def _generer_newsletter(entreprise, langue, texte_source, profiles):
+def _texte_normalise(value):
+    value = unicodedata.normalize("NFKD", str(value or ""))
+    value = value.encode("ascii", "ignore").decode("ascii").casefold()
+    return re.sub(r"[^a-z0-9]+", " ", value).strip()
+
+
+def _alias_entreprise(code, profil):
+    aliases = {str(code or "").strip(), str((profil or {}).get("nom_officiel") or "").strip()}
+    return sorted(
+        (alias for alias in aliases if len(_texte_normalise(alias)) >= 3),
+        key=len,
+        reverse=True,
+    )
+
+
+def _entreprises_mentionnees(texte, profiles, cible):
+    texte_normalise = f" {_texte_normalise(texte)} "
+    mentions = set()
+    for code, profil in profiles.items():
+        if code == cible:
+            continue
+        for alias in _alias_entreprise(code, profil):
+            alias_normalise = _texte_normalise(alias)
+            if alias_normalise and f" {alias_normalise} " in texte_normalise:
+                mentions.add(code)
+                break
+    return mentions
+
+
+def _preparer_texte_transfert(texte, codes_source, profiles):
+    resultat = texte
+    aliases = [
+        alias
+        for code in codes_source
+        for alias in _alias_entreprise(code, profiles.get(code))
+    ]
+    for alias in sorted(aliases, key=len, reverse=True):
+        resultat = re.sub(
+            rf"(?<![A-Za-z0-9]){re.escape(alias)}(?![A-Za-z0-9])",
+            "[ENTREPRISE SOURCE]",
+            resultat,
+            flags=re.IGNORECASE,
+        )
+    resultat = re.sub(r"https?://\S+|www\.\S+", "[COORDONNEE SOURCE]", resultat, flags=re.IGNORECASE)
+    resultat = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[COORDONNEE SOURCE]", resultat)
+
+    def masquer_telephone(match):
+        chiffres = re.sub(r"\D", "", match.group(0))
+        return "[COORDONNEE SOURCE]" if len(chiffres) >= 8 else match.group(0)
+
+    return re.sub(r"(?<!\w)\+?\d[\d\s()./-]{6,}\d(?!\w)", masquer_telephone, resultat)
+
+
+def _transfert_contient_marque_source(texte, codes_source, profiles):
+    normalized = f" {_texte_normalise(texte)} "
+    return any(
+        f" {_texte_normalise(alias)} " in normalized
+        for code in codes_source
+        for alias in _alias_entreprise(code, profiles.get(code))
+    )
+
+
+def _consigne_transfert(source_label, cible_label):
+    if not source_label:
+        return ""
+    return f"""
+
+TRANSFERT INTER-ENTREPRISE CONFIRME : le texte source provient de {source_label} et le contenu final est destine a {cible_label}.
+Le texte source a ete depouille de certains noms et coordonnees. N'inclus aucun nom, marque, adresse, telephone, URL, chiffre, date, prix, promesse, disponibilite ou garantie propre a la source, sauf si cette information figure aussi dans le profil valide de l'entreprise cible. Si un detail n'est pas confirme par le profil cible, omets-le. Ne transforme pas une affirmation de la source en fait concernant la cible.
+"""
+
+
+def _generer_newsletter(entreprise, langue, texte_source, profiles, transfert_info=None):
     profil = profiles[entreprise]
     regles = _regles_reseau(profil, "Newsletter")
     limite_caracteres = int(regles["max_caracteres"])
@@ -61,7 +137,7 @@ Retourne uniquement le contenu final de la newsletter, avec des titres de sectio
 Profil de l'entreprise :
 {profil_json}
 Règles du canal Newsletter :
-{regles_json}"""
+{regles_json}{_consigne_transfert(*transfert_info) if transfert_info else ""}"""
 
     derniere_erreur = None
     for tentative in range(2):
@@ -221,7 +297,7 @@ def _regles_reseau(profil, reseau):
     return regles
 
 
-def _adaptation_prompt(entreprise, profiles, langue, reseau):
+def _adaptation_prompt(entreprise, profiles, langue, reseau, transfert_info=None):
     profil = profiles.get(entreprise)
     if not profil:
         raise HTTPException(400, f"Aucun profil éditorial pour {entreprise}")
@@ -253,12 +329,12 @@ Respecte impérativement la structure et la longueur idéale de la plateforme si
 {consigne_hashtags} Respecte aussi l'usage des emojis défini par l'entreprise et la plateforme.
 N'ajoute aucun fait, chiffre, disponibilité, promesse, adresse ou lien qui n'apparait pas dans le texte source ou dans les informations validées du profil. Si une information nécessaire manque, applique la consigne mention_manquante du profil lorsqu'elle existe.
 Ne génère pas une nouvelle campagne : reformule et ajuste uniquement le contenu fourni.
-Ne mentionne jamais l'IA, ne montre pas ton raisonnement, et retourne uniquement le caption final sans guillemets ni préambule."""
+Ne mentionne jamais l'IA, ne montre pas ton raisonnement, et retourne uniquement le caption final sans guillemets ni préambule.""" + (_consigne_transfert(*transfert_info) if transfert_info else "")
 
 
 def adapt_caption(request, profiles):
     if not GROQ_API_KEY:
-        raise HTTPException(500, "Clé GROQ_API_KEY manquante sur le serveur.")
+        raise HTTPException(500, "Groq API key is missing on the server.")
 
     entreprise = request.entreprise.strip().upper()
     texte_source = request.texte_source.strip()
@@ -268,32 +344,70 @@ def adapt_caption(request, profiles):
     if not texte_source:
         raise HTTPException(400, "Le texte source est obligatoire.")
     if not reseaux:
-        raise HTTPException(400, "Sélectionnez au moins un réseau social.")
+        raise HTTPException(400, "Selectionnez au moins un canal.")
+
+    entreprise_source = (request.entreprise_source or "").strip().upper() or None
+    if entreprise_source and entreprise_source not in profiles:
+        raise HTTPException(404, f"Entreprise source introuvable : {entreprise_source}")
+
+    mentions_source = _entreprises_mentionnees(texte_source, profiles, entreprise)
+    codes_source = set(mentions_source)
+    if entreprise_source and entreprise_source != entreprise:
+        codes_source.add(entreprise_source)
+
+    transfert = request.source_differente or bool(codes_source)
+    if transfert and not request.confirmer_transfert:
+        mentions = ", ".join(sorted(codes_source))
+        detail = (
+            f"Le texte source semble mentionner {mentions}. Indiquez son origine et confirmez que le contenu a ete verifie pour etre reutilise par l entreprise cible."
+            if mentions
+            else "Le texte est indique comme provenant d une autre entreprise ou d une origine inconnue. Confirmez que son contenu a ete verifie pour etre reutilise par l entreprise cible."
+        )
+        raise HTTPException(400, detail)
+
+    transfert_info = None
+    texte_a_adapter = texte_source
+    if transfert:
+        source_label = "une entreprise source distincte"
+        cible_label = str(profiles[entreprise].get("nom_officiel") or entreprise)
+        transfert_info = (source_label, cible_label)
+        texte_a_adapter = _preparer_texte_transfert(texte_source, codes_source, profiles)
 
     adaptations = {}
-    try:
-        for reseau in reseaux:
+    erreurs = {}
+    for reseau in reseaux:
+        try:
             if reseau == "Newsletter":
-                adaptations[reseau] = _generer_newsletter(
+                resultat = _generer_newsletter(
                     entreprise,
                     request.langue,
-                    texte_source,
+                    texte_a_adapter,
                     profiles,
+                    transfert_info=transfert_info,
                 )
+                if transfert and _transfert_contient_marque_source(resultat.get("texte", ""), codes_source, profiles):
+                    raise HTTPException(502, "Le texte genere contient encore le nom de l entreprise source. Verifiez le texte avant de reessayer.")
+                adaptations[reseau] = resultat
                 continue
 
-            prompt = f"""Texte source fourni par l'utilisateur :
-{texte_source}
+            prompt = f"""Texte source fourni par l utilisateur :
+{texte_a_adapter}
 
-Adapte ce texte pour {reseau}. Respecte impérativement la limite de caractères et retourne uniquement la version finale."""
+Adapte ce texte pour {reseau}. Respecte la limite du canal et retourne uniquement le texte final."""
             limite = _regles_reseau(profiles[entreprise], reseau)["max_caracteres"]
-            system_prompt = _adaptation_prompt(entreprise, profiles, request.langue, reseau)
+            system_prompt = _adaptation_prompt(
+                entreprise,
+                profiles,
+                request.langue,
+                reseau,
+                transfert_info=transfert_info,
+            )
             client = Groq(api_key=GROQ_API_KEY)
             texte = ""
             for tentative in range(2):
                 consigne = prompt
                 if tentative:
-                    consigne += f"\n\nIMPORTANT : ta réponse précédente dépassait la limite. Réécris-la plus courte, en moins de {limite} caractères, sans perdre les informations essentielles."
+                    consigne += f"\n\nIMPORTANT : la reponse precedente depassait la limite. Reecrivez-la en moins de {limite} caracteres sans perdre les informations essentielles."
                 response = client.chat.completions.create(
                     model="qwen/qwen3.8-27b",
                     messages=[
@@ -309,11 +423,13 @@ Adapte ce texte pour {reseau}. Respecte impérativement la limite de caractères
                 if len(texte) <= limite:
                     break
             if len(texte) > limite:
-                raise HTTPException(502, f"Le caption {reseau} dépasse encore la limite de {limite} caractères après une nouvelle tentative.")
+                raise HTTPException(502, f"Le texte {reseau} depasse encore la limite de {limite} caracteres apres une nouvelle tentative.")
+            if transfert and _transfert_contient_marque_source(texte, codes_source, profiles):
+                raise HTTPException(502, "Le texte genere contient encore le nom de l entreprise source. Verifiez le texte avant de reessayer.")
             adaptations[reseau] = {"texte": texte, "caracteres": len(texte), "maximum": limite}
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(500, f"Erreur d'adaptation pour {reseau} : {e}") from e
+        except HTTPException as exc:
+            erreurs[reseau] = str(exc.detail)
+        except Exception as exc:
+            erreurs[reseau] = f"Erreur d adaptation pour {reseau} : {exc}"
 
-    return {"adaptations": adaptations}
+    return {"adaptations": adaptations, "erreurs": erreurs}
